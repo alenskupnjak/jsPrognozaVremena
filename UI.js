@@ -9,13 +9,14 @@ class UI {
     this.feelsLike = document.getElementById('w-feels-like');
     this.koordinate= document.getElementById('w-koordinate');
     this.wind = document.getElementById('w-wind');
+    this.datum = document.getElementById('datum');
   }
 
   popuniDOM(vrijeme) {    
     this.location.textContent = vrijeme.name;
     this.desc.textContent = vrijeme.weather[0].description;
     let celzius = (vrijeme.main.temp - 273.15).toFixed();
-    this.temperatura.textContent = `Temperatura: ${celzius} °C`;
+    this.temperatura.textContent = `Trenutno: ${celzius} °C`;
 
     // let URL = `openweathermap.org/img/wn/03n@2x.png`
     // let URL = `https://openweathermap.org/img/wn/${vrijeme.weather[0].icon}@2x.png`
@@ -26,16 +27,16 @@ class UI {
     this.feelsLike.textContent = `Vrijeme: ${vrijeme.weather[0].description}`;
     this.koordinate.textContent = `Koordinate: lon. ${vrijeme.coord.lon} lat. ${vrijeme.coord.lat}`;
     this.wind.textContent = `Brzina vjetra: ${vrijeme.wind.speed} m/s`;
+    this.datum.textContent= `${this.formatirajDatum()}`;
   }
 
   formirajIconu (vrijeme){
    console.log(vrijeme);
       let day;
      //  https://developer.accuweather.com/sites/default/files/06-s.png
-// https://www.accuweather.com/images/weathericons/7.svg
     switch(vrijeme){
       case 'vedro':
-        day = 'css/1.svg';
+        day = 'css/01-s.png';
         break;
       case 'oblačno':
         day = 'css/7.svg';
@@ -61,7 +62,10 @@ class UI {
   }
 
    formatirajDatum() {
+    let day;
     let danas = new Date();
+    console.log(danas);
+    
     let dd = danas.getDate();
     let mm = danas.getMonth() + 1; 
     let yyyy = danas.getFullYear();
@@ -78,12 +82,38 @@ class UI {
     console.log(danas);
     danas= mm+'/'+dd+'/'+yyyy;
     console.log(danas);
-    danas= dd+'-'+mm+'-'+yyyy;
+    // danas= dd+'-'+mm+'-'+yyyy;
     console.log(danas);
-    danas= dd+'/'+mm+'/'+yyyy;
+    danas= dd+'.'+mm+'.'+ yyyy
     console.log(danas);
-    return danas
+
+    switch(new Date().getDay()){
+      case 0:
+        day = 'Nedelja';
+        break;
+      case 1:
+        day = 'Ponedeljak';
+        break;
+      case 2:
+        day = 'Utorak';
+        break;
+      case 3:
+        day = 'Srijeda';
+        break;
+      case 4:
+        day = 'Četvrtak';
+        break;
+      case 5:
+        day = 'Petak';
+        break;
+      case 6:
+        day = 'Subota';
+        break;
+    }
+    return day + ', '+ danas
   }
+
+  
 
 
   upozorenje(msg, className) {

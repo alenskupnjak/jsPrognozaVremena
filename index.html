@@ -14,9 +14,9 @@
     <div class="row">
       <div class="col-md-6 mx-auto text-center mt-5 p-5 rounded" style="background: rgb(247, 243, 243);">
         <h1 id="w-location"></h1>
-        <h3 class="text-dark" id="w-desc"></h3>
+        <h3 id="w-string"></h3>
         <div class="row">
-          <h3 id="w-string"></h3>
+          <h4 id="w-desc" class="mx-auto"></h4>
           <img id="w-icon" style="height: 35px;" class="mx-auto">
         </div>
         <ul id="w-details" class="list-group mt-3">
@@ -25,13 +25,14 @@
           <li class="list-group-item" id="w-feels-like"></li>
           <li class="list-group-item" id="w-wind"></li>
         </ul>
-        <button type="button" class="btn btn-danger mt-2" data-toggle="modal" id="sedamDana" disabled>
-            Prognoza 7 dana u izradi
+        <button type="button" class="btn btn-warning mt-2" data-toggle="modal" id="sedamDana" disabled>
+            Prognoza 7 dana u izradi..
         </button>
         <hr>
         <button type="button" class="btn btn-success" data-toggle="modal" data-target="#locModal">
             Promijeni lokaciju
         </button>
+        <p id="datum" class="mt-2">datum</p>
       </div>
     </div>
   </div>
@@ -66,6 +67,7 @@
                           <option>FR</option>
                           <option>UK</option>
                           <option>SLO</option>
+                          <option>NL</option>
                         </select>
                       </div>
 
