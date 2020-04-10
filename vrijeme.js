@@ -7,11 +7,25 @@ class Vrijeme {
 
   // Pokupi vrijeme sa API openweathermap 1000 poziva /dnevno
   async getVrijeme () {
-    URL = `http://api.openweathermap.org/data/2.5/weather?q=${this.grad},${this.drzava}&appid=c6ce8e54cb1a45e8a46e0c7c9e327d8d`;
+    URL = `https://api.openweathermap.org/data/2.5/weather?q=${this.grad},${this.drzava}&lang=hr&appid=c6ce8e54cb1a45e8a46e0c7c9e327d8d`;
     const response =  await fetch(URL);
     const responseData = await response.json();
+    console.log(responseData);
+    
     return responseData;
   }
+
+  // Prognoza vremena za 7 dana
+  async sedamDana(lat, lon) {
+    const URL = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&lang=hr&appid=c6ce8e54cb1a45e8a46e0c7c9e327d8d`
+    const response =  await fetch(URL);
+    const responseData = await response.json();
+    console.log(responseData);
+  
+    return responseData;
+  }
+
+
 
   // Promjeni lokaciju grada
   promjeniLokaciju(grad, drzava) {

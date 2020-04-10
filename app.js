@@ -10,6 +10,17 @@ const ui = new UI();
 // pokupi podatke vremena iz DOM prilikom refresh
 document.addEventListener('DOMContentLoaded', dohvatiVrijeme);
 
+// prognoza za 7 dana
+document.getElementById('sedamDana').addEventListener('click', (e) => {
+
+  vrijeme.sedamDana(45.83, 16.12);
+
+// lon: 16.12 sesvete
+// lat: 45.83
+
+
+});
+
 // Promjeni lokaciju
 document.getElementById('w-change-btn').addEventListener('click', (e)=> {
   const grad = document.getElementById('city').value;
