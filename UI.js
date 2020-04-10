@@ -2,7 +2,7 @@ class UI {
   constructor() {
     this.location = document.getElementById('w-location');
     this.desc = document.getElementById('w-desc');
-    this.string = document.getElementById('w-string');
+    this.temperatura = document.getElementById('w-string');
     this.details = document.getElementById('w-details');
     this.icon = document.getElementById('w-icon');
     this.humidity = document.getElementById('w-humidity');
@@ -15,7 +15,7 @@ class UI {
     this.location.textContent = vrijeme.name;
     this.desc.textContent = vrijeme.weather[0].main;
     let celzius = (vrijeme.main.temp - 273.15).toFixed();
-    this.string.textContent = `${celzius} °C`;
+    this.temperatura.textContent = `Temperatura: ${celzius} °C`;
     // this.icon.setAttribute('src', vrijeme.icon_url);
     this.humidity.textContent = `Relativna vlažnost: ${vrijeme.main.humidity}%`;
     this.feelsLike.textContent = `Vrijeme: ${vrijeme.weather[0].description}`;

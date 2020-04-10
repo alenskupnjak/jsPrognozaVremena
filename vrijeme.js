@@ -13,7 +13,7 @@ class Vrijeme {
     return responseData;
   }
 
-  // Promjeni lokaciju
+  // Promjeni lokaciju grada
   promjeniLokaciju(grad, drzava) {
     this.grad = grad;
     this.drzava = drzava;
