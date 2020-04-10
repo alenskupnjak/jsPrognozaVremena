@@ -25,19 +25,26 @@ document.getElementById('sedamDana').addEventListener('click', (e) => {
 document.getElementById('w-change-btn').addEventListener('click', (e)=> {
   const grad = document.getElementById('city').value;
   const drzava = document.getElementById('state').value;
-
-  // promjeni lokaciju grada
-  vrijeme.promjeniLokaciju(grad, drzava);
-
-  // promjeni local storage
-  locStorage.setLocationData(grad,drzava)
-
-  // dohvati vremenske podatke
-  dohvatiVrijeme();
-
-  // zatvori modal
-  $('#locModal').modal('hide');
-
+ console.log('grad ='  + grad );
+ console.log('drzava= ' + drzava );
+ 
+  if(grad !== '' && drzava !=='') {
+    console.log('hej');
+    
+    // promjeni lokaciju grada
+    vrijeme.promjeniLokaciju(grad, drzava);
+  
+    // promjeni local storage
+    locStorage.setLocationData(grad,drzava)
+  
+    // dohvati vremenske podatke
+    dohvatiVrijeme();
+  
+    // zatvori modal
+    $('#locModal').modal('hide');
+  } else {
+    ui.upozorenje('Jedno je polje prazno', 'alert-danger');
+  }
 })
 
 
@@ -45,8 +52,13 @@ document.getElementById('w-change-btn').addEventListener('click', (e)=> {
 function dohvatiVrijeme(){
   vrijeme.getVrijeme()
     .then((data) => {
-     ui.popuniDOM(data);
+      console.log(data);
+      if (data !== 'nemaGrada'){
+        ui.popuniDOM(data);
+      } else {
+        ui.upozorenje('Nisam pronašao grad!', 'alert-danger');
+        locStorage.setLocationData('Sesvete','HR')
+      }
     })
     .catch((err) => console.log(err));
-
 }

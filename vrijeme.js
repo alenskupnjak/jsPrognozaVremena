@@ -7,12 +7,25 @@ class Vrijeme {
 
   // Pokupi vrijeme sa API openweathermap 1000 poziva /dnevno
   async getVrijeme () {
-    URL = `https://api.openweathermap.org/data/2.5/weather?q=${this.grad},${this.drzava}&lang=hr&appid=c6ce8e54cb1a45e8a46e0c7c9e327d8d`;
-    const response =  await fetch(URL);
-    const responseData = await response.json();
-    console.log(responseData);
-    
-    return responseData;
+    try {
+      URL = `https://api.openweathermap.org/data/2.5/weather?q=${this.grad},${this.drzava}&lang=hr&appid=c6ce8e54cb1a45e8a46e0c7c9e327d8d`;
+      const response =  await fetch(URL);
+      const responseData = await response.json();
+      console.log('responseData.cod= ' + responseData.cod);
+      if (responseData.cod === '404') {
+        return 'nemaGrada'
+      }
+      
+      return responseData;
+
+    } catch (err) {
+      console.log(err);
+
+      // {
+      //   "cod": "404",
+      //   "message": "city not found"
+      // }
+    }
   }
 
   // Prognoza vremena za 7 dana

@@ -12,11 +12,13 @@
 <body>
   <div class="container">
     <div class="row">
-      <div class="col-md-6 mx-auto text-center bg-primary mt-5 p-5 rounded">
+      <div class="col-md-6 mx-auto text-center mt-5 p-5 rounded" style="background: rgb(247, 243, 243);">
         <h1 id="w-location"></h1>
         <h3 class="text-dark" id="w-desc"></h3>
-        <h3 id="w-string"></h3>
-        <img id="w-icon">
+        <div class="row">
+          <h3 id="w-string"></h3>
+          <img id="w-icon" style="height: 35px;" class="mx-auto">
+        </div>
         <ul id="w-details" class="list-group mt-3">
           <li class="list-group-item" id="w-humidity"></li>
           <li class="list-group-item" id="w-koordinate"></li>
@@ -28,7 +30,7 @@
         </button>
         <hr>
         <button type="button" class="btn btn-success" data-toggle="modal" data-target="#locModal">
-            Promjeni lokaciju
+            Promijeni lokaciju
         </button>
       </div>
     </div>
@@ -47,18 +49,39 @@
       <div class="modal-body">
         <form id="w-form">
           <div class="form-group">
-            <label for="city">Grad</label>
+            <label for="city">Mjesto</label>
             <input type="text" id="city" class="form-control">
           </div>
+
+<!-- 
           <div class="form-group">
               <label for="state">Država</label>
               <input type="text" id="state" class="form-control" value="HR">
-            </div>
+            </div> -->
+            
+                      <div class="form-group col-md-6">
+                        <label for="state">Država</label>
+                        <select class="form-control" id="state" aria-placeholder="Izaberi zemlju">
+                          <option>HR</option>
+                          <option>FR</option>
+                          <option>UK</option>
+                          <option>SLO</option>
+                        </select>
+                      </div>
+
+
+<!-- 
+          <select class="custom-select custom-select-sm">
+            <option selected>Open this select menu</option>
+            <option value="1">HR</option>
+            <option value="2">FR</option>
+            <option value="3">UK</option>
+          </select> -->
         </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Zatvori</button>
-        <button id="w-change-btn" type="button" class="btn btn-primary">Snimi promjene</button>
+        <button id="w-change-btn" type="button" class="btn btn-primary">Potvrdi odabir</button>
       </div>
     </div>
   </div>
