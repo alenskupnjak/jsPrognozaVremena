@@ -4,6 +4,7 @@ const vrijemeLokacije = locStorage.getLocationData();
 
 // Init Vrijeme class
 const vrijeme = new Vrijeme(vrijemeLokacije.grad, vrijemeLokacije.drzava);
+
 // Init DOM
 const ui = new UI();
 
@@ -13,11 +14,10 @@ document.addEventListener('DOMContentLoaded', dohvatiVrijeme);
 // prognoza za 7 dana
 document.getElementById('sedamDana').addEventListener('click', (e) => {
 
-  vrijeme.sedamDana(45.83, 16.12);
+vrijeme.sedamDana(45.83, 16.12);
 
 // lon: 16.12 sesvete
 // lat: 45.83
-
 
 });
 
@@ -52,7 +52,6 @@ document.getElementById('w-change-btn').addEventListener('click', (e)=> {
 function dohvatiVrijeme(){
   vrijeme.getVrijeme()
     .then((data) => {
-      console.log(data);
       if (data !== 'nemaGrada'){
         ui.popuniDOM(data);
       } else {

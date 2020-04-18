@@ -9,14 +9,21 @@ class UI {
     this.feelsLike = document.getElementById('w-feels-like');
     this.koordinate= document.getElementById('w-koordinate');
     this.wind = document.getElementById('w-wind');
+    this.izlazSunca = document.getElementById('sunce-izlaz');
+    this.zalazSunca = document.getElementById('sunce-zalaz');
     this.datum = document.getElementById('datum');
   }
 
-  popuniDOM(vrijeme) {    
+  popuniDOM(vrijeme) {   
+    this.pretvorVrijeme(vrijeme.sys.sunrise);
+    this.pretvorVrijeme(vrijeme.sys.sunset);
+    console.log(vrijeme.sys.sunrise);
+    console.log('Zalaz sunca='+ vrijeme.sys.sunset);
+    
     this.location.textContent = vrijeme.name;
     this.desc.textContent = vrijeme.weather[0].description;
-    let celzius = (vrijeme.main.temp - 273.15).toFixed();
-    this.temperatura.textContent = `Trenutno: ${celzius} °C`;
+    // let celzius = (vrijeme.main.temp - 273.15).toFixed();
+    this.temperatura.textContent = `Trenutno: ${vrijeme.main.temp.toFixed()} °C`;
 
     // let URL = `openweathermap.org/img/wn/03n@2x.png`
     // let URL = `https://openweathermap.org/img/wn/${vrijeme.weather[0].icon}@2x.png`
@@ -27,6 +34,8 @@ class UI {
     this.feelsLike.textContent = `Vrijeme: ${vrijeme.weather[0].description}`;
     this.koordinate.textContent = `Koordinate: lon. ${vrijeme.coord.lon} lat. ${vrijeme.coord.lat}`;
     this.wind.textContent = `Brzina vjetra: ${vrijeme.wind.speed} m/s`;
+    this.izlazSunca.textContent = 'Izlazak sunca: '+this.pretvorVrijeme(vrijeme.sys.sunrise);
+    this.zalazSunca.textContent = 'Zalazak sunca: '+this.pretvorVrijeme(vrijeme.sys.sunset);
     this.datum.textContent= `${this.formatirajDatum()}`;
   }
 
@@ -39,10 +48,10 @@ class UI {
         day = 'css/01-s.png';
         break;
       case 'oblačno':
-        day = 'css/7.svg';
+        day = 'css/7-s.png';
         break;
       case 'raštrkani oblaci':
-        day = 'css/4.svg';
+        day = 'css/04-s.png';
         break;
       case 'kiša':
         day = 'css/18-s.png';
@@ -50,8 +59,8 @@ class UI {
       case 'blaga naoblaka':
         day = 'css/06-s.png';
         break;
-      case 5:
-        day = 'Friday';
+      case 'isprekidani oblaci':
+        day = 'css/03-s.png';
         break;
       case 6:
         day = 'Saturday';
@@ -115,7 +124,6 @@ class UI {
 
   
 
-
   upozorenje(msg, className) {
     console.log('upozorenje');
 
@@ -155,11 +163,28 @@ class UI {
       setTimeout(function () {
         document.querySelector('.alert').remove();
       }, 3000);
-
-
-
-
   }
+
+  pretvorVrijeme(data) {
+    let unix_timestamp = data
+    // Create a new JavaScript Date object based on the timestamp
+    // multiplied by 1000 so that the argument is in milliseconds, not seconds.
+    let date = new Date(unix_timestamp * 1000);
+    console.log('date='+ date);
+
+    // Hours part from the timestamp
+    var hours = date.getHours();
+    // Minutes part from the timestamp
+    var minutes = "0" + date.getMinutes();
+    // Seconds part from the timestamp
+    var seconds = "0" + date.getSeconds();
+
+    // Will display time in 10:30:23 format
+    var formattedTime = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
+    console.log('Formatirano vrijeme= '+formattedTime);
+    return formattedTime
+  }
+
 
 
 
