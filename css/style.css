@@ -1,0 +1,52 @@
+body, html .container {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  display: flex;
+}
+
+.list-group-item {
+  /* padding: 0.5rem 0 0.5rem 0; */
+}
+
+.trenutno {
+  margin: 0;
+}
+
+.sedamdana {
+  background-color: red;
+  margin: 0;
+  padding: 0;
+}
+
+.ikone {
+  height: 30px;
+  margin: 0 0.5rem 0 0;
+}
+.trenutnoIkona {
+  margin: 0 1rem 0 0;
+}
+
+.sedamdana-col{
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: inline-block;
+  width: 31%;
+  background-color:#fff;
+}
+
+.sedamdana-col li{
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: inline-block;
+  /* width: 30%; */
+  /* background-color: blue; */
+}
+.sedamdana-col img{
+ width: 1rem;
+}

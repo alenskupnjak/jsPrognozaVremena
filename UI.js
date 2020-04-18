@@ -6,41 +6,76 @@ class UI {
     this.details = document.getElementById('w-details');
     this.icon = document.getElementById('w-icon');
     this.humidity = document.getElementById('w-humidity');
-    this.feelsLike = document.getElementById('w-feels-like');
+    // this.feelsLike = document.getElementById('w-feels-like');
     this.koordinate= document.getElementById('w-koordinate');
     this.wind = document.getElementById('w-wind');
     this.izlazSunca = document.getElementById('sunce-izlaz');
     this.zalazSunca = document.getElementById('sunce-zalaz');
     this.datum = document.getElementById('datum');
+    this.lista48sati1 = document.getElementById('sedamdana-dani-1');
+    this.lista48sati2 = document.getElementById('sedamdana-dani-2');
+    this.lista48sati3 = document.getElementById('sedamdana-dani-3');
   }
 
-  popuniDOM(vrijeme) {   
-    this.pretvorVrijeme(vrijeme.sys.sunrise);
-    this.pretvorVrijeme(vrijeme.sys.sunset);
-    console.log(vrijeme.sys.sunrise);
-    console.log('Zalaz sunca='+ vrijeme.sys.sunset);
-    
+  popuniDOM(vrijeme) {    
+    let markup;   
     this.location.textContent = vrijeme.name;
     this.desc.textContent = vrijeme.weather[0].description;
     // let celzius = (vrijeme.main.temp - 273.15).toFixed();
-    this.temperatura.textContent = `Trenutno: ${vrijeme.main.temp.toFixed()} °C`;
+    this.temperatura.textContent = `${new Date().getHours()}:${new Date().getMinutes()};    ${vrijeme.main.temp.toFixed()} °C`;
 
+
+    
     // let URL = `openweathermap.org/img/wn/03n@2x.png`
     // let URL = `https://openweathermap.org/img/wn/${vrijeme.weather[0].icon}@2x.png`
     
     // this.icon.setAttribute('src',`https://openweathermap.org/img/wn/${vrijeme.weather[0].icon}@2x.png`);
     this.icon.setAttribute('src', this.formirajIconu(vrijeme.weather[0].description));
-    this.humidity.textContent = `Relativna vlažnost: ${vrijeme.main.humidity}%`;
-    this.feelsLike.textContent = `Vrijeme: ${vrijeme.weather[0].description}`;
-    this.koordinate.textContent = `Koordinate: lon. ${vrijeme.coord.lon} lat. ${vrijeme.coord.lat}`;
-    this.wind.textContent = `Brzina vjetra: ${vrijeme.wind.speed} m/s`;
-    this.izlazSunca.textContent = 'Izlazak sunca: '+this.pretvorVrijeme(vrijeme.sys.sunrise);
-    this.zalazSunca.textContent = 'Zalazak sunca: '+this.pretvorVrijeme(vrijeme.sys.sunset);
+    // this.humidity.textContent = `Relativna vlažnost: ${vrijeme.main.humidity}%`;
+    // this.humidity.innerHTML=`<li class="list-group-item" id="w-humidity"><img src="css/humidity.png" class="ikone">${vrijeme.main.humidity} %</li>`
+    markup =`<li class="list-group-item" id="w-humidity"><img src="css/humidity.png" class="ikone">${vrijeme.main.humidity} %</li>`
+    this.details.insertAdjacentHTML("beforebegin",markup)
+    // this.feelsLike.textContent = `Vrijeme: ${vrijeme.weather[0].description}`;
+    // this.koordinate.textContent = `Koordinate: lon. ${vrijeme.coord.lon} lat. ${vrijeme.coord.lat}`;
+    // this.wind.textContent = `Brzina vjetra: ${vrijeme.wind.speed} m/s`;
+    // this.wind.remove();
+    markup  =`<li class="list-group-item" id="w-wind"><img src="css/wind.png" class="ikone">${(vrijeme.wind.speed).toFixed(1)} m/s</li>`
+    this.details.insertAdjacentHTML("beforebegin",markup)
+    // this.izlazSunca.textContent = 'Izlazak sunca: '+ this.pretvorVrijeme(vrijeme.sys.sunrise);
+    markup = `<li class="list-group-item" id="sunce-izlaz"><img src="css/sunrise.png" class="ikone">${this.pretvorVrijeme(vrijeme.sys.sunrise)}</li>`
+    this.details.insertAdjacentHTML("beforebegin",markup)
+    // this.zalazSunca.textContent = this.pretvorVrijeme(vrijeme.sys.sunset);
+    markup =`<li class="list-group-item" id="sunce-zalaz"><img src="css/sunset.png" class="ikone">${this.pretvorVrijeme(vrijeme.sys.sunset)}</li>`
+    this.details.insertAdjacentHTML("beforebegin",markup)
     this.datum.textContent= `${this.formatirajDatum()}`;
   }
 
+  popunuDOMsedam(vrijeme) {
+    let markup;   
+    let sata48 = Array.from(vrijeme.hourly).forEach((data, index)=>{
+      let br= Math.floor(index/16)+1
+      switch(br){
+        case 1:
+          console.log('kolona 1');
+          //     <li>01-<img src="css/wind.png" style="width: 1rem;"></li>
+          // markup =`<li><img src="css/humidity.png" class="ikone">${vrijeme.main.humidity} %</li>`
+          break;
+        case 2:
+          console.log('kolona 2');
+          break;
+        case 3:
+          console.log('kolona 3');
+          break;
+      }
+      console.log(br);
+      
+      console.log(index, this.pretvorVrijeme(data.dt), data.weather[0].description);
+    });
+    
+
+  }
+
   formirajIconu (vrijeme){
-   console.log(vrijeme);
       let day;
      //  https://developer.accuweather.com/sites/default/files/06-s.png
     switch(vrijeme){
@@ -66,14 +101,12 @@ class UI {
         day = 'Saturday';
         break;
     }
-    console.log(day);
     return day
   }
 
    formatirajDatum() {
     let day;
     let danas = new Date();
-    console.log(danas);
     
     let dd = danas.getDate();
     let mm = danas.getMonth() + 1; 
@@ -166,26 +199,25 @@ class UI {
   }
 
   pretvorVrijeme(data) {
+    
     let unix_timestamp = data
     // Create a new JavaScript Date object based on the timestamp
     // multiplied by 1000 so that the argument is in milliseconds, not seconds.
     let date = new Date(unix_timestamp * 1000);
-    console.log('date='+ date);
 
     // Hours part from the timestamp
-    var hours = date.getHours();
+    let hours = date.getHours();
+
     // Minutes part from the timestamp
-    var minutes = "0" + date.getMinutes();
+    let minutes = "0" + date.getMinutes();
+
     // Seconds part from the timestamp
-    var seconds = "0" + date.getSeconds();
+    let seconds = "0" + date.getSeconds();
 
     // Will display time in 10:30:23 format
-    var formattedTime = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
-    console.log('Formatirano vrijeme= '+formattedTime);
+    // let formattedTime = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
+    let formattedTime = hours + ':' + minutes.substr(-2)
     return formattedTime
   }
-
-
-
 
 }

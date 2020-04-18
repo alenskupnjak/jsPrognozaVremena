@@ -11,7 +11,6 @@ class Vrijeme {
       URL = `https://api.openweathermap.org/data/2.5/weather?q=${this.grad},${this.drzava}&lang=hr&units=metric&appid=c6ce8e54cb1a45e8a46e0c7c9e327d8d`;
       const response =  await fetch(URL);
       const responseData = await response.json();
-      console.log('responseData.cod= ' + responseData.cod);
       if (responseData.cod === '404') {
         return 'nemaGrada'
       }

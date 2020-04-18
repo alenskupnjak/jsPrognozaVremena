@@ -12,14 +12,14 @@ const ui = new UI();
 document.addEventListener('DOMContentLoaded', dohvatiVrijeme);
 
 // prognoza za 7 dana
-document.getElementById('sedamDana').addEventListener('click', (e) => {
+// document.getElementById('sedamDanabtn').addEventListener('click', (e) => {
 
-vrijeme.sedamDana(45.83, 16.12);
+// vrijeme.sedamDana(45.83, 16.12);
 
-// lon: 16.12 sesvete
-// lat: 45.83
+// // lon: 16.12 sesvete
+// // lat: 45.83
 
-});
+// });
 
 // Promjeni lokaciju
 document.getElementById('w-change-btn').addEventListener('click', (e)=> {
@@ -54,10 +54,19 @@ function dohvatiVrijeme(){
     .then((data) => {
       if (data !== 'nemaGrada'){
         ui.popuniDOM(data);
+          vrijeme.sedamDana(data.coord.lat,data.coord.lon)
+          .then(data =>{
+            ui.popunuDOMsedam(data)
+          })
+          .catch(err => {
+          console.log(err);
+          });
+
       } else {
         ui.upozorenje('Nisam pronašao grad!', 'alert-danger');
         locStorage.setLocationData('Sesvete','HR')
       }
     })
     .catch((err) => console.log(err));
+
 }

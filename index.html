@@ -4,39 +4,120 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://kit.fontawesome.com/165d179615.js" crossorigin="anonymous"></script>
   <link rel="shortcut icon" type="image/icon" href="css/weather.ico">
   <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  
   <title>Prognoza vremena</title>
 </head>
 
 <body>
   <div class="container">
-    <div class="row">
-      <div class="col-md-6 mx-auto text-center mt-5 p-5 rounded" style="background: #f3f3f3;">
-        <h1 id="w-location"></h1>
-        <h3 id="w-string"></h3>
+    <!-- <section class="col-sm-4">
+      <div class=" text-center mt-5 p-5 rounded">
+        <h1>7 dana</h1>
+      </div>
+
+    </section> -->
+    <section class="col-sm-6 trenutno">
+      <div class="text-center mt-2 p-2 rounded" style="background: #f3f3f3;">
+        <h2 id="w-location"></h2>
+        <h4 id="w-string"></h4>
         <div class="row">
-          <h4 id="w-desc" class="mx-auto"></h4>
-          <img id="w-icon" style="height: 35px;" class="mx-auto">
+          <h5 id="w-desc" class="mx-auto"></h5>
+          <img id="w-icon" style="height: 2rem;" class="mx-auto">
         </div>
-        <ul id="w-details" class="list-group mt-3">
-          <li class="list-group-item" id="w-humidity"></li>
-          <li class="list-group-item" id="w-koordinate"></li>
-          <li class="list-group-item" id="w-feels-like"></li>
-          <li class="list-group-item" id="w-wind"></li>
-          <li class="list-group-item" id="sunce-izlaz"></li>
-          <li class="list-group-item" id="sunce-zalaz"></li>
+        <ul id="w-details" class="list-group mt-2">
+          <!-- <li class="list-group-item" id="w-humidity"></li> -->
+          <!-- <li class="list-group-item" id="w-koordinate"></li> -->
+          <!-- <li class="list-group-item" id="w-feels-like"></li> -->
+          <!-- <li class="list-group-item" id="w-wind"></li> -->
+          <!-- <li class="list-group-item" id="sunce-izlaz"></li> -->
+          <!-- <li class="list-group-item" id="sunce-zalaz"></li> -->
+          <!-- <li class="list-group-item" ><img src="css/sunrise.png" class="ikone"></li> -->
+          <!-- <li class="list-group-item" ><img src="css/sunset.png" class="ikone"></li> -->
         </ul>
-        <button type="button" class="btn btn-warning mt-2" data-toggle="modal" id="sedamDana">
+        <!-- <button type="button" class="btn btn-warning mt-2" data-toggle="modal" id="sedamDanabtn">
             Prognoza 7 dana u izradi..
-        </button>
-        <hr>
+        </button> -->
+        <!-- <hr> -->
         <button type="button" class="btn btn-success" data-toggle="modal" data-target="#locModal">
             Promijeni lokaciju
         </button>
         <p id="datum" class="mt-2">datum</p>
       </div>
-    </div>
+    </section>
+
+    <section class="col-sm-6 sedamdana">
+      <div class="text-center mt-2 rounded">
+        <h1>7 dana</h1>
+         <div class="sedamdana-col col-sm-2">
+           <ul id="sedamdana-dani-1" class="list-group">
+             <li>01-<img src="css/wind.png"></li>
+             <li>21-<img src="css/wind.png" style="width: 1rem;"></li>
+             <li>21-<img src="css/wind.png" style="width: 1rem;"></li>
+             <li>21-<img src="css/wind.png" style="width: 1rem;"></li>
+             <li>21-<img src="css/wind.png" style="width: 1rem;"></li>
+             <li>21-<img src="css/wind.png" style="width: 1rem;"></li>
+             <li>21-<img src="css/wind.png" style="width: 1rem;"></li>
+             <li>21-<img src="css/wind.png" style="width: 1rem;"></li>
+             <li>21-<img src="css/wind.png" style="width: 1rem;"></li>
+             <li>21-<img src="css/wind.png" style="width: 1rem;"></li>
+             <li>21-<img src="css/wind.png" style="width: 1rem;"></li>
+             <li>21-<img src="css/wind.png" style="width: 1rem;"></li>
+             <li>21-<img src="css/16-s.png" style="width: 1rem;"></li>
+             <li>21-<img src="css/16-s.png" style="width: 1rem;"></li>
+             <li>21-<img src="css/16-s.png" style="width: 1rem;"></li>
+             <li>21-<img src="css/16-s.png" style="width: 1rem;"></li>
+           </ul>
+         </div>
+         <div class="sedamdana-col col-sm-2">
+           <ul id="sedamdana-dani-2" class="list-group">
+            <li>01-<img src="css/wind.png" style="width: 1rem;"></li>
+            <li>21-<img src="css/wind.png" style="width: 1rem;"></li>
+            <li>21-<img src="css/wind.png" style="width: 1rem;"></li>
+            <li>21-<img src="css/wind.png" style="width: 1rem;"></li>
+            <li>21-<img src="css/wind.png" style="width: 1rem;"></li>
+            <li>21-<img src="css/wind.png" style="width: 1rem;"></li>
+            <li>21-<img src="css/wind.png" style="width: 1rem;"></li>
+            <li>21-<img src="css/wind.png" style="width: 1rem;"></li>
+            <li>21-<img src="css/wind.png" style="width: 1rem;"></li>
+            <li>21-<img src="css/wind.png" style="width: 1rem;"></li>
+            <li>21-<img src="css/wind.png" style="width: 1rem;"></li>
+            <li>21-<img src="css/wind.png" style="width: 1rem;"></li>
+            <li>21-<img src="css/16-s.png" style="width: 1rem;"></li>
+            <li>21-<img src="css/16-s.png" style="width: 1rem;"></li>
+            <li>21-<img src="css/16-s.png" style="width: 1rem;"></li>
+            <li>21-<img src="css/16-s.png" style="width: 1rem;"></li>
+
+           </ul>
+         </div>
+
+         <div class="sedamdana-col col-sm-2">
+           <ul id="sedamdana-dani-3" class="list-group">
+            <li>01-<img src="css/wind.png" style="width: 1rem;"></li>
+            <li>21-<img src="css/wind.png" style="width: 1rem;"></li>
+            <li>21-<img src="css/wind.png" style="width: 1rem;"></li>
+            <li>21-<img src="css/wind.png" style="width: 1rem;"></li>
+            <li>21-<img src="css/wind.png" style="width: 1rem;"></li>
+            <li>21-<img src="css/wind.png" style="width: 1rem;"></li>
+            <li>21-<img src="css/wind.png" style="width: 1rem;"></li>
+            <li>21-<img src="css/wind.png" style="width: 1rem;"></li>
+            <li>21-<img src="css/wind.png" style="width: 1rem;"></li>
+            <li>21-<img src="css/wind.png" style="width: 1rem;"></li>
+            <li>21-<img src="css/wind.png" style="width: 1rem;"></li>
+            <li>21-<img src="css/wind.png" style="width: 1rem;"></li>
+            <li>21-<img src="css/16-s.png" style="width: 1rem;"></li>
+            <li>21-<img src="css/16-s.png" style="width: 1rem;"></li>
+            <li>21-<img src="css/16-s.png" style="width: 1rem;"></li>
+            <li>21-<img src="css/16-s.png" style="width: 1rem;"></li>
+           </ul>
+         </div>
+      </div>
+
+
+    </section>
   </div>
 
   <!-- Modal -->
