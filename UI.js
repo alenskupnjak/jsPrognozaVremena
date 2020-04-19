@@ -42,7 +42,11 @@ class UI {
   popunuDOMsedam(vrijeme) {
     let markup;
     // stvara polje od podataka 48 sati
-    let sata48 = Array.from(vrijeme.hourly).forEach((data, index)=>{
+    let sata48 = Array.from(vrijeme.hourly).forEach((data, index) => {
+
+      // definiramo doba dana da možemi uhvatiti ispravnu ikonu
+      let dobaDanaIkona= this.dobaDana(index,vrijeme);
+
       // definira se kolona vrijeme 48 gdje ce se vršiti zapis
       let br= Math.floor(index/16)+1
 
@@ -57,15 +61,15 @@ class UI {
        // ovisno o stupcu za 48sat vremena popunjavam DOM
       switch(br){
         case 1:
-          markup =`<li class="sati48">${vrijeme48}<img src="${this.formirajIconu(data.weather[0].description)}"></li>`
+          markup =`<li class="sati48">${vrijeme48}<img src="${this.formirajIconu(data.weather[0].description,dobaDanaIkona)}"></li>`
           this.lista48sati1.insertAdjacentHTML("beforebegin",markup)
           break;
         case 2:
-          markup =`<li class="sati48">${vrijeme48}<img src="${this.formirajIconu(data.weather[0].description)}"></li>`
+          markup =`<li class="sati48">${vrijeme48}<img src="${this.formirajIconu(data.weather[0].description,dobaDanaIkona)}"></li>`
           this.lista48sati2.insertAdjacentHTML("beforebegin",markup)
           break;
         case 3:
-          markup =`<li class="sati48">${vrijeme48}<img src="${this.formirajIconu(data.weather[0].description)}"></li>`
+          markup =`<li class="sati48">${vrijeme48}<img src="${this.formirajIconu(data.weather[0].description,dobaDanaIkona)}"></li>`
           this.lista48sati3.insertAdjacentHTML("beforebegin",markup)
           break;
       }
@@ -75,15 +79,23 @@ class UI {
   }
 
   // vračamo link ikone iz CSS direktorija prema opisu iu API
-  formirajIconu (vrijeme){
+  formirajIconu (vrijeme,dobaDanaIkona){
       let day;
      //  https://developer.accuweather.com/sites/default/files/06-s.png
     switch(vrijeme){
       case 'vedro':
-        day = 'css/01-s.png';
+        if(dobaDanaIkona === 'dan') {
+          day = 'css/01-s.png';
+        } else {
+          day = 'css/33-s.png';
+        }
         break;
       case 'oblačno':
-        day = 'css/07-s.png';
+        if(dobaDanaIkona === 'dan') {
+          day = 'css/07-s.png';
+        } else {
+          day = 'css/38-s.png';
+        }
         break;
       case 'raštrkani oblaci':
         day = 'css/04-s.png';
@@ -95,10 +107,18 @@ class UI {
         day = 'css/06-s.png';
         break;
       case 'isprekidani oblaci':
-        day = 'css/03-s.png';
+        if(dobaDanaIkona === 'dan') {
+          day = 'css/03-s.png';
+        } else {
+          day = 'css/35-s.png';
+        }
         break;
       case 'slaba kiša':
-        day = 'css/13-s.png';
+        if(dobaDanaIkona === 'dan') {
+          day = 'css/13-s.png';
+        } else {
+          day = 'css/39-s.png';
+        }
         break;
     }
     return day
@@ -154,7 +174,59 @@ class UI {
     return day + ', '+ danas
   }
 
-  
+  dobaDana(index,vrijeme) {
+    let izlazSunca;
+    let zalazSunca;
+    let dobaDana;
+    console.log(index,vrijeme);
+    console.log(vrijeme.hourly[index].weather[0].description);
+    
+
+    // odredujemo datum
+    let today = new Date().getDate();
+    // console.log(today);
+
+    let dan = new Date(vrijeme.hourly[index].dt * 1000).getDate();
+    // console.log(dan);
+
+    let razlika = dan - today;
+    // ako je kraj mjeseca npr.30 a sljedeci dan je 1, dobivamo negtivnu vrijednost i dodajemo trenutni dan
+    if( razlika < 0) {
+      razlika = razlika + today
+    }
+
+    let datavrijeme = this.pretvorVrijeme(vrijeme.hourly[index].dt);
+    console.log(datavrijeme);
+
+    // definiramo sat kojeg promatramo
+    let sat = vrijeme.hourly[index].dt
+
+    // odredujemo  izlazak i zalazalk sunca ta dan u kojem se promatra sat
+    if( razlika === 0) {
+      console.log('doba prvog dana');
+      izlazSunca = vrijeme.daily[0].sunrise;
+      zalazSunca  = vrijeme.daily[0].sunset;
+    } else if(razlika === 1) {
+      console.log('doba drugog dana');
+      izlazSunca  = vrijeme.daily[1].sunrise;
+      zalazSunca  = vrijeme.daily[1].sunset;
+    } else {
+      console.log('doba treceg dana');
+      izlazSunca = vrijeme.daily[2].sunrise;
+      zalazSunca  = vrijeme.daily[2].sunset;
+    }
+    
+    if ( sat > izlazSunca && sat < zalazSunca ) {
+      dobaDana='dan'
+      console.log('Izlazak sunca= ' + izlazSunca + ' - ' + dobaDana + ' - ' +vrijeme.hourly[index].dt + '  zalazak= ' +  zalazSunca);
+    } else {
+      dobaDana='noc'
+      console.log('Izlazak sunca= ' + izlazSunca + ' - '+ dobaDana + ' - '+ vrijeme.hourly[index].dt + '  zalazak= ' +  zalazSunca);
+    }
+
+    return dobaDana;
+   
+  }
 
   upozorenje(msg, className) {
     console.log('upozorenje');
