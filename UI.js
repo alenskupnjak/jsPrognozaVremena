@@ -21,58 +21,32 @@ class UI {
     let markup;   
     this.location.textContent = vrijeme.name;
     this.desc.textContent = vrijeme.weather[0].description;
-    // let celzius = (vrijeme.main.temp - 273.15).toFixed();
     this.temperatura.textContent = `${this.pretvorVrijeme((new Date().getTime())/1000)}h;    ${vrijeme.main.temp.toFixed()} °C`;
 
-
-    
     // let URL = `openweathermap.org/img/wn/03n@2x.png`
     // let URL = `https://openweathermap.org/img/wn/${vrijeme.weather[0].icon}@2x.png`
     
-    // this.icon.setAttribute('src',`https://openweathermap.org/img/wn/${vrijeme.weather[0].icon}@2x.png`);
     this.icon.setAttribute('src', this.formirajIconu(vrijeme.weather[0].description));
     // this.humidity.textContent = `Relativna vlažnost: ${vrijeme.main.humidity}%`;
-    // this.humidity.innerHTML=`<li class="list-group-item" id="w-humidity"><img src="css/humidity.png" class="ikone">${vrijeme.main.humidity} %</li>`
     markup =`<li class="list-group-item" id="w-humidity"><img src="css/humidity.png" class="ikone">${vrijeme.main.humidity} %</li>`
     this.details.insertAdjacentHTML("beforebegin",markup)
-    // this.feelsLike.textContent = `Vrijeme: ${vrijeme.weather[0].description}`;
-    // this.koordinate.textContent = `Koordinate: lon. ${vrijeme.coord.lon} lat. ${vrijeme.coord.lat}`;
-    // this.wind.textContent = `Brzina vjetra: ${vrijeme.wind.speed} m/s`;
-    // this.wind.remove();
     markup  =`<li class="list-group-item" id="w-wind"><img src="css/wind.png" class="ikone">${(vrijeme.wind.speed).toFixed(1)} m/s</li>`
     this.details.insertAdjacentHTML("beforebegin",markup)
-    // this.izlazSunca.textContent = 'Izlazak sunca: '+ this.pretvorVrijeme(vrijeme.sys.sunrise);
     markup = `<li class="list-group-item" id="sunce-izlaz"><img src="css/sunrise.png" class="ikone">${this.pretvorVrijeme(vrijeme.sys.sunrise)}</li>`
     this.details.insertAdjacentHTML("beforebegin",markup)
-    // this.zalazSunca.textContent = this.pretvorVrijeme(vrijeme.sys.sunset);
     markup =`<li class="list-group-item" id="sunce-zalaz"><img src="css/sunset.png" class="ikone">${this.pretvorVrijeme(vrijeme.sys.sunset)}</li>`
     this.details.insertAdjacentHTML("beforebegin",markup)
     this.datum.textContent= `${this.formatirajDatum()}`;
   }
 
   popunuDOMsedam(vrijeme) {
-    console.log(vrijeme);
-    
-    let markup;   
+    let markup;
+    // stvara polje od podataka 48 sati
     let sata48 = Array.from(vrijeme.hourly).forEach((data, index)=>{
+      // definira se kolona vrijeme 48 gdje ce se vršiti zapis
       let br= Math.floor(index/16)+1
-      // console.log(data.hourly[index].dt);
-      // console.log(data);
-      
-      // console.log(data.dt);
-      // console.log(data.weather[0].description);
-      // console.log(this.pretvorVrijeme(data.dt));
-      // let tmp = this.pretvorVrijeme(data.dt);
-      // console.log(tmp);
-      // tmp = tmp.substr(0,tmp.length -3)
-      // console.log(tmp);
 
-      // if( parseInt(tmp) < 10) {
-      //   console.log('Manji sam od 10  ' + tmp);
-      //   tmp = "0" + tmp
-      //   console.log(tmp);
-      // }
-
+      // pretvaram dobiveni sat u prikladan format za ispis
       let vrijeme48 = this.pretvorVrijeme(data.dt).substr(0,this.pretvorVrijeme(data.dt).length -3)
 
       // formatiram vrijemje ako je npr.9h pretvaram ga u 09h
@@ -80,10 +54,7 @@ class UI {
          vrijeme48 = "0" + vrijeme48
        }
       
-      
-      // console.log(typeof(this.pretvorVrijeme(data.dt)));
-
-      
+       // ovisno o stupcu za 48sat vremena popunjavam DOM
       switch(br){
         case 1:
           markup =`<li class="sati48">${vrijeme48}<img src="${this.formirajIconu(data.weather[0].description)}"></li>`
@@ -98,8 +69,6 @@ class UI {
           this.lista48sati3.insertAdjacentHTML("beforebegin",markup)
           break;
       }
-      
-      // console.log(index, this.pretvorVrijeme(data.dt), data.weather[0].description);
     });
     
 
@@ -107,8 +76,6 @@ class UI {
 
   // vračamo link ikone iz CSS direktorija prema opisu iu API
   formirajIconu (vrijeme){
-    // console.log('formirajIconu= ' + vrijeme);
-    
       let day;
      //  https://developer.accuweather.com/sites/default/files/06-s.png
     switch(vrijeme){
@@ -160,7 +127,6 @@ class UI {
     // danas= dd+'-'+mm+'-'+yyyy;
     // console.log(danas);
     danas= dd+'.'+mm+'.'+ yyyy
-    // console.log(danas);
 
     switch(new Date().getDay()){
       case 0:
@@ -192,7 +158,7 @@ class UI {
 
   upozorenje(msg, className) {
     console.log('upozorenje');
-
+      // kreiraj element
       let div = document.createElement('div');
       // Add class
       div.className = `col-md-6 mx-auto text-center alert ${className} mt-3`;
@@ -200,7 +166,7 @@ class UI {
       div.appendChild(document.createTextNode(msg));
       //Get parent
       let container = document.querySelector('.container');
-  
+      // selektiraj formu ispred koje češ ga ubaciti
       let form = document.querySelector('.row');
   
       // Ubaci upozorenje
@@ -242,15 +208,9 @@ class UI {
 
     // Minutes part from the timestamp
     let minutes = "0" + date.getMinutes();
-    // console.log(minutes );
-    
-    // console.log('Minute= '+ minutes );
 
     // Seconds part from the timestamp
     let seconds = "0" + date.getSeconds();
-    // console.log(seconds);
-    
-    // console.log('Sekunde= '+ seconds);
     
     // Will display time in 10:30:23 format
     // let formattedTime = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
@@ -261,18 +221,17 @@ class UI {
   }
 
   ocistiEkran(){
-
     // ako su polja 48 h puna , brišem ih da se mogu ubaciti novi podaci
     // prilikom prvog usnimavanja polje je prazno ta preskače ovaj dio
     if(document.querySelectorAll('.sati48').length > 0) {
-      document.querySelectorAll('.sati48').forEach( e => {
-        e.remove();
-      })
+        document.querySelectorAll('.sati48').forEach( e => {
+          e.remove();
+        })
 
-      // kako nije prvo učitavanje , brišem postojeće detalje sa ekrana
-      document.querySelectorAll('.list-group-item').forEach( e => {
-       e.remove();  
-      })
+        // kako nije prvo učitavanje , brišem postojeće detalje sa ekrana
+        document.querySelectorAll('.list-group-item').forEach( e => {
+          e.remove();  
+        })
     }
   }
 

@@ -14,31 +14,26 @@ document.addEventListener('DOMContentLoaded', dohvatiVrijeme);
 // prognoza za 7 dana
 // document.getElementById('sedamDanabtn').addEventListener('click', (e) => {
 
-// vrijeme.sedamDana(45.83, 16.12);
 
-// // lon: 16.12 sesvete
-// // lat: 45.83
+// lon: 16.12 sesvete
+// lat: 45.83
 
 // });
 
 // Promjeni lokaciju
 document.getElementById('w-change-btn').addEventListener('click', (e)=> {
+  // očitavam vrijednosti grada i države sa ekrana
   const grad = document.getElementById('city').value;
   const drzava = document.getElementById('state').value;
  
+  // provjera dali je jedno polje prazno. Ako je daje upozorenje i čeka novi upis
   if(grad !== '' && drzava !=='') {
-    console.log('hej');
     
     // promjeni lokaciju grada
     vrijeme.promjeniLokaciju(grad, drzava);
   
     // promjeni local storage
     locStorage.setLocationData(grad,drzava)
-
-
-    // počisti UI
-    //  ui.ocistiEkran();
-
   
     // dohvati vremenske podatke
     dohvatiVrijeme();
@@ -59,15 +54,12 @@ function dohvatiVrijeme(){
   vrijeme.getVrijeme()
     .then((data) => {
       if (data !== 'nemaGrada'){
-        // počisti UI
-        // ui.ocistiEkran();
-        
+
+        // popunjavam pvo podatke trenutnog vremena
         ui.popuniDOM(data);
+
           vrijeme.sedamDana(data.coord.lat,data.coord.lon)
           .then(data =>{
-
-            // počisti UI
-            ui.ocistiEkran();
             // popuni 48 sati vrijeme
             ui.popunuDOMsedam(data)
           })
@@ -81,5 +73,4 @@ function dohvatiVrijeme(){
       }
     })
     .catch((err) => console.log(err));
-
 }
