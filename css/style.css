@@ -12,10 +12,11 @@ body, html .container {
 
 .trenutno {
   margin: 0;
+  background: #f3f3f3;
 }
 
 .sedamdana {
-  background-color: red;
+  background: #f3f3f3;
   margin: 0;
   padding: 0;
 }
@@ -34,7 +35,7 @@ body, html .container {
   padding: 0;
   display: inline-block;
   width: 31%;
-  background-color:#fff;
+  background: #f3f3f3;
 }
 
 .sedamdana-col li{

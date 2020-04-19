@@ -19,11 +19,6 @@ class Vrijeme {
 
     } catch (err) {
       console.log(err);
-
-      // {
-      //   "cod": "404",
-      //   "message": "city not found"
-      // }
     }
   }
 
@@ -38,11 +33,9 @@ class Vrijeme {
   }
 
 
-
   // Promjeni lokaciju grada
   promjeniLokaciju(grad, drzava) {
     this.grad = grad;
     this.drzava = drzava;
   }
-
 }

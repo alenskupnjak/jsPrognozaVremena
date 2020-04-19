@@ -74,51 +74,34 @@ class UI {
           break;
       }
     });
-    
-
   }
+  
 
-  // vračamo link ikone iz CSS direktorija prema opisu iu API
+  // vračamo link ikone iz CSS direktorija prema opisu iz API
   formirajIconu (vrijeme,dobaDanaIkona){
       let day;
      //  https://developer.accuweather.com/sites/default/files/06-s.png
     switch(vrijeme){
       case 'vedro':
-        if(dobaDanaIkona === 'dan') {
-          day = 'css/01-s.png';
-        } else {
-          day = 'css/33-s.png';
-        }
+        if(dobaDanaIkona === 'dan') { day = 'css/01-s.png';} else {day = 'css/33-s.png';}
         break;
       case 'oblačno':
-        if(dobaDanaIkona === 'dan') {
-          day = 'css/07-s.png';
-        } else {
-          day = 'css/38-s.png';
-        }
+        if(dobaDanaIkona === 'dan') {day = 'css/07-s.png';} else {day = 'css/38-s.png';}
         break;
       case 'raštrkani oblaci':
-        day = 'css/04-s.png';
+        if(dobaDanaIkona === 'dan') {day = 'css/04-s.png';} else {day = 'css/34-s.png';}
         break;
       case 'kiša':
-        day = 'css/18-s.png';
+        if(dobaDanaIkona === 'dan') {day = 'css/18-s.png';} else {day = 'css/40-s.png';}
         break;
       case 'blaga naoblaka':
-        day = 'css/06-s.png';
+        if(dobaDanaIkona === 'dan') {day = 'css/06-s.png'} else {day = 'css/36-s.png';}
         break;
       case 'isprekidani oblaci':
-        if(dobaDanaIkona === 'dan') {
-          day = 'css/03-s.png';
-        } else {
-          day = 'css/35-s.png';
-        }
+        if(dobaDanaIkona === 'dan') {day = 'css/03-s.png';} else {day = 'css/35-s.png';}
         break;
       case 'slaba kiša':
-        if(dobaDanaIkona === 'dan') {
-          day = 'css/13-s.png';
-        } else {
-          day = 'css/39-s.png';
-        }
+        if(dobaDanaIkona === 'dan') {day = 'css/13-s.png';} else {day = 'css/39-s.png';}
         break;
     }
     return day
@@ -174,14 +157,13 @@ class UI {
     return day + ', '+ danas
   }
 
+
   dobaDana(index,vrijeme) {
     let izlazSunca;
     let zalazSunca;
     let dobaDana;
-    console.log(index,vrijeme);
     console.log(vrijeme.hourly[index].weather[0].description);
     
-
     // odredujemo datum
     let today = new Date().getDate();
     // console.log(today);
@@ -190,56 +172,53 @@ class UI {
     // console.log(dan);
 
     let razlika = dan - today;
+
     // ako je kraj mjeseca npr.30 a sljedeci dan je 1, dobivamo negtivnu vrijednost i dodajemo trenutni dan
     if( razlika < 0) {
       razlika = razlika + today
     }
 
-    let datavrijeme = this.pretvorVrijeme(vrijeme.hourly[index].dt);
-    console.log(datavrijeme);
-
     // definiramo sat kojeg promatramo
     let sat = vrijeme.hourly[index].dt
 
-    // odredujemo  izlazak i zalazalk sunca ta dan u kojem se promatra sat
+    // odredujemo  izlazak i zalazalk sunca za dan u kojem se promatra sat
     if( razlika === 0) {
-      console.log('doba prvog dana');
+      // console.log('doba prvog dana');
       izlazSunca = vrijeme.daily[0].sunrise;
       zalazSunca  = vrijeme.daily[0].sunset;
     } else if(razlika === 1) {
-      console.log('doba drugog dana');
+      // console.log('doba drugog dana');
       izlazSunca  = vrijeme.daily[1].sunrise;
       zalazSunca  = vrijeme.daily[1].sunset;
     } else {
-      console.log('doba treceg dana');
+      // console.log('doba treceg dana');
       izlazSunca = vrijeme.daily[2].sunrise;
       zalazSunca  = vrijeme.daily[2].sunset;
     }
     
     if ( sat > izlazSunca && sat < zalazSunca ) {
       dobaDana='dan'
-      console.log('Izlazak sunca= ' + izlazSunca + ' - ' + dobaDana + ' - ' +vrijeme.hourly[index].dt + '  zalazak= ' +  zalazSunca);
+      // console.log('Izlazak sunca= ' + izlazSunca + ' - ' + dobaDana + ' - ' +vrijeme.hourly[index].dt + '  zalazak= ' +  zalazSunca);
     } else {
       dobaDana='noc'
-      console.log('Izlazak sunca= ' + izlazSunca + ' - '+ dobaDana + ' - '+ vrijeme.hourly[index].dt + '  zalazak= ' +  zalazSunca);
+      // console.log('Izlazak sunca= ' + izlazSunca + ' - '+ dobaDana + ' - '+ vrijeme.hourly[index].dt + '  zalazak= ' +  zalazSunca);
     }
 
     return dobaDana;
-   
   }
 
+
   upozorenje(msg, className) {
-    console.log('upozorenje');
       // kreiraj element
       let div = document.createElement('div');
-      // Add class
+      // dodaj klasu
       div.className = `col-md-6 mx-auto text-center alert ${className} mt-3`;
-      // Add text
+      // dodaj text
       div.appendChild(document.createTextNode(msg));
-      //Get parent
+      // Get parent
       let container = document.querySelector('.container');
       // selektiraj formu ispred koje češ ga ubaciti
-      let form = document.querySelector('.row');
+      let form = document.querySelector('.trenutno');
   
       // Ubaci upozorenje
       container.insertBefore(div, form);
@@ -306,5 +285,4 @@ class UI {
         })
     }
   }
-
 }

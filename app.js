@@ -11,20 +11,14 @@ const ui = new UI();
 // pokupi podatke vremena iz DOM prilikom refresh
 document.addEventListener('DOMContentLoaded', dohvatiVrijeme);
 
-// prognoza za 7 dana
-// document.getElementById('sedamDanabtn').addEventListener('click', (e) => {
-
-
-// lon: 16.12 sesvete
-// lat: 45.83
-
-// });
-
 // Promjeni lokaciju
 document.getElementById('w-change-btn').addEventListener('click', (e)=> {
   // očitavam vrijednosti grada i države sa ekrana
   const grad = document.getElementById('city').value;
   const drzava = document.getElementById('state').value;
+
+  console.log(grad);
+  
  
   // provjera dali je jedno polje prazno. Ako je daje upozorenje i čeka novi upis
   if(grad !== '' && drzava !=='') {
@@ -33,7 +27,7 @@ document.getElementById('w-change-btn').addEventListener('click', (e)=> {
     vrijeme.promjeniLokaciju(grad, drzava);
   
     // promjeni local storage
-    locStorage.setLocationData(grad,drzava)
+    locStorage.setLocationData(grad, drzava)
   
     // dohvati vremenske podatke
     dohvatiVrijeme();
@@ -46,7 +40,7 @@ document.getElementById('w-change-btn').addEventListener('click', (e)=> {
 })
 
 
-/// dohvati vremenske podatke
+// dohvati vremenske podatke
 function dohvatiVrijeme(){
   // počisti UI
   ui.ocistiEkran();
