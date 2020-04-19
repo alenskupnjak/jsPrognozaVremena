@@ -39,6 +39,10 @@ document.getElementById('w-change-btn').addEventListener('click', (e)=> {
   
     // dohvati vremenske podatke
     dohvatiVrijeme();
+
+    // počisti UI
+    ui.ocistiEkran();
+
   
     // zatvori modal
     $('#locModal').modal('hide');
@@ -53,6 +57,9 @@ function dohvatiVrijeme(){
   vrijeme.getVrijeme()
     .then((data) => {
       if (data !== 'nemaGrada'){
+        // počisti UI
+        // ui.ocistiEkran();
+        
         ui.popuniDOM(data);
           vrijeme.sedamDana(data.coord.lat,data.coord.lon)
           .then(data =>{

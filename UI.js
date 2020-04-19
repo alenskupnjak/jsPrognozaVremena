@@ -22,7 +22,7 @@ class UI {
     this.location.textContent = vrijeme.name;
     this.desc.textContent = vrijeme.weather[0].description;
     // let celzius = (vrijeme.main.temp - 273.15).toFixed();
-    this.temperatura.textContent = `${new Date().getHours()}:${new Date().getMinutes()};    ${vrijeme.main.temp.toFixed()} °C`;
+    this.temperatura.textContent = `${this.pretvorVrijeme((new Date().getTime())/1000)}h;    ${vrijeme.main.temp.toFixed()} °C`;
 
 
     
@@ -51,31 +51,64 @@ class UI {
   }
 
   popunuDOMsedam(vrijeme) {
+    console.log(vrijeme);
+    
     let markup;   
     let sata48 = Array.from(vrijeme.hourly).forEach((data, index)=>{
       let br= Math.floor(index/16)+1
+      // console.log(data.hourly[index].dt);
+      // console.log(data);
+      
+      // console.log(data.dt);
+      // console.log(data.weather[0].description);
+      // console.log(this.pretvorVrijeme(data.dt));
+      // let tmp = this.pretvorVrijeme(data.dt);
+      // console.log(tmp);
+      // tmp = tmp.substr(0,tmp.length -3)
+      // console.log(tmp);
+
+      // if( parseInt(tmp) < 10) {
+      //   console.log('Manji sam od 10  ' + tmp);
+      //   tmp = "0" + tmp
+      //   console.log(tmp);
+      // }
+
+      let vrijeme48 = this.pretvorVrijeme(data.dt).substr(0,this.pretvorVrijeme(data.dt).length -3)
+
+      // formatiram vrijemje ako je npr.9h pretvaram ga u 09h
+       if(parseInt(vrijeme48) < 10) {
+         vrijeme48 = "0" + vrijeme48
+       }
+      
+      
+      // console.log(typeof(this.pretvorVrijeme(data.dt)));
+
+      
       switch(br){
         case 1:
-          console.log('kolona 1');
-          //     <li>01-<img src="css/wind.png" style="width: 1rem;"></li>
-          // markup =`<li><img src="css/humidity.png" class="ikone">${vrijeme.main.humidity} %</li>`
+          markup =`<li class="sati48">${vrijeme48}<img src="${this.formirajIconu(data.weather[0].description)}"></li>`
+          this.lista48sati1.insertAdjacentHTML("beforebegin",markup)
           break;
         case 2:
-          console.log('kolona 2');
+          markup =`<li class="sati48">${vrijeme48}<img src="${this.formirajIconu(data.weather[0].description)}"></li>`
+          this.lista48sati2.insertAdjacentHTML("beforebegin",markup)
           break;
         case 3:
-          console.log('kolona 3');
+          markup =`<li class="sati48">${vrijeme48}<img src="${this.formirajIconu(data.weather[0].description)}"></li>`
+          this.lista48sati3.insertAdjacentHTML("beforebegin",markup)
           break;
       }
-      console.log(br);
       
-      console.log(index, this.pretvorVrijeme(data.dt), data.weather[0].description);
+      // console.log(index, this.pretvorVrijeme(data.dt), data.weather[0].description);
     });
     
 
   }
 
+  // vračamo link ikone iz CSS direktorija prema opisu iu API
   formirajIconu (vrijeme){
+    // console.log('formirajIconu= ' + vrijeme);
+    
       let day;
      //  https://developer.accuweather.com/sites/default/files/06-s.png
     switch(vrijeme){
@@ -83,7 +116,7 @@ class UI {
         day = 'css/01-s.png';
         break;
       case 'oblačno':
-        day = 'css/7-s.png';
+        day = 'css/07-s.png';
         break;
       case 'raštrkani oblaci':
         day = 'css/04-s.png';
@@ -97,8 +130,8 @@ class UI {
       case 'isprekidani oblaci':
         day = 'css/03-s.png';
         break;
-      case 6:
-        day = 'Saturday';
+      case 'slaba kiša':
+        day = 'css/13-s.png';
         break;
     }
     return day
@@ -121,13 +154,13 @@ class UI {
         mm='0'+mm;
     } 
     danas= mm+'-'+dd+'-'+yyyy;
-    console.log(danas);
+    // console.log(danas);
     danas= mm+'/'+dd+'/'+yyyy;
-    console.log(danas);
+    // console.log(danas);
     // danas= dd+'-'+mm+'-'+yyyy;
-    console.log(danas);
+    // console.log(danas);
     danas= dd+'.'+mm+'.'+ yyyy
-    console.log(danas);
+    // console.log(danas);
 
     switch(new Date().getDay()){
       case 0:
@@ -199,7 +232,6 @@ class UI {
   }
 
   pretvorVrijeme(data) {
-    
     let unix_timestamp = data
     // Create a new JavaScript Date object based on the timestamp
     // multiplied by 1000 so that the argument is in milliseconds, not seconds.
@@ -210,14 +242,40 @@ class UI {
 
     // Minutes part from the timestamp
     let minutes = "0" + date.getMinutes();
+    // console.log(minutes );
+    
+    // console.log('Minute= '+ minutes );
 
     // Seconds part from the timestamp
     let seconds = "0" + date.getSeconds();
-
+    // console.log(seconds);
+    
+    // console.log('Sekunde= '+ seconds);
+    
     // Will display time in 10:30:23 format
     // let formattedTime = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
     let formattedTime = hours + ':' + minutes.substr(-2)
+    // console.log('Formatirano vrijeme= '+ formattedTime);
+    
     return formattedTime
+  }
+
+  ocistiEkran(){
+    
+    console.log( document.querySelectorAll('.sati48'));
+    document.querySelectorAll('.sati48').remove();
+    if(this.lista48sati1) {
+    console.log( document.querySelectorAll('.sati48'));
+   
+      
+      console.log('postojim');
+      
+    }
+    this.lista48sati1.innerHTML ='';
+    this.lista48sati2.innerHTML ='';
+    this.lista48sati3.innerHTML ='';
+    // this.izlazSunca.remove();
+    // this.zalazSunca.remove();
   }
 
 }
