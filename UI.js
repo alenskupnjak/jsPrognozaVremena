@@ -162,7 +162,7 @@ class UI {
     let izlazSunca;
     let zalazSunca;
     let dobaDana;
-    console.log(vrijeme.hourly[index].weather[0].description);
+    // console.log(vrijeme.hourly[index].weather[0].description);
     
     // odredujemo datum
     let today = new Date().getDate();

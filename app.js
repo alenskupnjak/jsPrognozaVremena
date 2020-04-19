@@ -64,6 +64,7 @@ function dohvatiVrijeme(){
       } else {
         ui.upozorenje('Nisam pronašao grad!', 'alert-danger');
         locStorage.setLocationData('Sesvete','HR')
+        ui.popuniDOM(data);
       }
     })
     .catch((err) => console.log(err));
