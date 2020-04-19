@@ -261,21 +261,19 @@ class UI {
   }
 
   ocistiEkran(){
-    
-    console.log( document.querySelectorAll('.sati48'));
-    document.querySelectorAll('.sati48').remove();
-    if(this.lista48sati1) {
-    console.log( document.querySelectorAll('.sati48'));
-   
-      
-      console.log('postojim');
-      
+
+    // ako su polja 48 h puna , brišem ih da se mogu ubaciti novi podaci
+    // prilikom prvog usnimavanja polje je prazno ta preskače ovaj dio
+    if(document.querySelectorAll('.sati48').length > 0) {
+      document.querySelectorAll('.sati48').forEach( e => {
+        e.remove();
+      })
+
+      // kako nije prvo učitavanje , brišem postojeće detalje sa ekrana
+      document.querySelectorAll('.list-group-item').forEach( e => {
+       e.remove();  
+      })
     }
-    this.lista48sati1.innerHTML ='';
-    this.lista48sati2.innerHTML ='';
-    this.lista48sati3.innerHTML ='';
-    // this.izlazSunca.remove();
-    // this.zalazSunca.remove();
   }
 
 }

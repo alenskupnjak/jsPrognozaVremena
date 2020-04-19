@@ -25,8 +25,6 @@ document.addEventListener('DOMContentLoaded', dohvatiVrijeme);
 document.getElementById('w-change-btn').addEventListener('click', (e)=> {
   const grad = document.getElementById('city').value;
   const drzava = document.getElementById('state').value;
- console.log('grad ='  + grad );
- console.log('drzava= ' + drzava );
  
   if(grad !== '' && drzava !=='') {
     console.log('hej');
@@ -36,14 +34,15 @@ document.getElementById('w-change-btn').addEventListener('click', (e)=> {
   
     // promjeni local storage
     locStorage.setLocationData(grad,drzava)
+
+
+    // počisti UI
+    //  ui.ocistiEkran();
+
   
     // dohvati vremenske podatke
     dohvatiVrijeme();
 
-    // počisti UI
-    ui.ocistiEkran();
-
-  
     // zatvori modal
     $('#locModal').modal('hide');
   } else {
@@ -54,6 +53,9 @@ document.getElementById('w-change-btn').addEventListener('click', (e)=> {
 
 /// dohvati vremenske podatke
 function dohvatiVrijeme(){
+  // počisti UI
+  ui.ocistiEkran();
+
   vrijeme.getVrijeme()
     .then((data) => {
       if (data !== 'nemaGrada'){
@@ -63,6 +65,10 @@ function dohvatiVrijeme(){
         ui.popuniDOM(data);
           vrijeme.sedamDana(data.coord.lat,data.coord.lon)
           .then(data =>{
+
+            // počisti UI
+            ui.ocistiEkran();
+            // popuni 48 sati vrijeme
             ui.popunuDOMsedam(data)
           })
           .catch(err => {
