@@ -18,6 +18,8 @@ class UI {
   }
 
   popuniDOM(vrijeme) {    
+    console.log(vrijeme);
+    
     let markup;   
     this.location.textContent = vrijeme.name;
     this.desc.textContent = vrijeme.weather[0].description;
