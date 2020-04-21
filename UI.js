@@ -18,17 +18,33 @@ class UI {
   }
 
   popuniDOM(vrijeme) {    
-    console.log(vrijeme);
+    // console.log(vrijeme);
+    // API openweathermap daje vrijeme u sekundama, JS traži milisekunde
+    // console.log('Milisekunde='+ vrijeme.dt, new Date(vrijeme.sys.sunrise  * 1000));
+    // console.log('Milisekunde='+ vrijeme.sys.sunrise,new Date(vrijeme.dt  * 1000));
+    // console.log('Milisekunde='+ vrijeme.sys.sunset,new Date(vrijeme.sys.sunset  * 1000));
     
-    let markup;   
+
+
+
+
+    let markup;
+    let dobaDanaIkona;
     this.location.textContent = vrijeme.name;
     this.desc.textContent = vrijeme.weather[0].description;
     this.temperatura.textContent = `${this.pretvorVrijeme((new Date().getTime())/1000)}h;    ${vrijeme.main.temp.toFixed()} °C`;
 
     // let URL = `openweathermap.org/img/wn/03n@2x.png`
     // let URL = `https://openweathermap.org/img/wn/${vrijeme.weather[0].icon}@2x.png`
+
+    // oderđujem koje je doba dana da se odabera dnevna/nocna ikona
+    if ( vrijeme.dt > vrijeme.sys.sunrise && vrijeme.dt < vrijeme.sys.sunset ) {
+      dobaDanaIkona ='dan';
+    } else {
+      dobaDanaIkona ='noc';
+    }
     
-    this.icon.setAttribute('src', this.formirajIconu(vrijeme.weather[0].description));
+    this.icon.setAttribute('src', this.formirajIconu(vrijeme.weather[0].description, dobaDanaIkona));
     // this.humidity.textContent = `Relativna vlažnost: ${vrijeme.main.humidity}%`;
     markup =`<li class="list-group-item" id="w-humidity"><img src="css/humidity.png" class="ikone">${vrijeme.main.humidity} %</li>`
     this.details.insertAdjacentHTML("beforebegin",markup)
@@ -42,6 +58,8 @@ class UI {
   }
 
   popunuDOMsedam(vrijeme) {
+    // console.log(vrijeme);
+    
     let markup;
     // stvara polje od podataka 48 sati
     let sata48 = Array.from(vrijeme.hourly).forEach((data, index) => {
@@ -81,6 +99,8 @@ class UI {
 
   // vračamo link ikone iz CSS direktorija prema opisu iz API
   formirajIconu (vrijeme,dobaDanaIkona){
+    // console.log(vrijeme);
+  
       let day;
      //  https://developer.accuweather.com/sites/default/files/06-s.png
     switch(vrijeme){
@@ -104,6 +124,9 @@ class UI {
         break;
       case 'slaba kiša':
         if(dobaDanaIkona === 'dan') {day = 'css/13-s.png';} else {day = 'css/39-s.png';}
+        break;
+      case 'umjerena kiša':
+        if(dobaDanaIkona === 'dan') {day = 'css/14-s.png';} else {day = 'css/39-s.png';}
         break;
     }
     return day
