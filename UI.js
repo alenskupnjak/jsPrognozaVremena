@@ -61,9 +61,13 @@ class UI {
     // console.log(vrijeme);
     
     let markup;
+    let klasaIkone = '' ;
+    let startnoVrijeme =  this.pretvorVrijeme(vrijeme.hourly[0].dt ).substr(0,this.pretvorVrijeme(vrijeme.hourly[0].dt).length -3)
+    let doPonoci = 24 - startnoVrijeme;
+    
     // stvara polje od podataka 48 sati
     let sata48 = Array.from(vrijeme.hourly).forEach((data, index) => {
-
+      
       // definiramo doba dana da možemi uhvatiti ispravnu ikonu
       let dobaDanaIkona= this.dobaDana(index,vrijeme);
 
@@ -77,19 +81,29 @@ class UI {
        if(parseInt(vrijeme48) < 10) {
          vrijeme48 = "0" + vrijeme48
        }
+
+
+       // odredujem u kojem sam danu, mijenjam boju fonta u stupcu 7dana
+      if(index  < doPonoci ) {
+      } else if( index  < doPonoci +24){
+        klasaIkone = 'sutra'
+      } else {
+        klasaIkone = 'prekosutra'
+      }
       
-       // ovisno o stupcu za 48sat vremena popunjavam DOM
+        
+        // ovisno o stupcu za 48sat vremena popunjavam DOM
       switch(br){
         case 1:
-          markup =`<li class="sati48">${vrijeme48}<img src="${this.formirajIconu(data.weather[0].description,dobaDanaIkona)}"></li>`
+          markup =`<li class="sati48 ${klasaIkone}">${vrijeme48}<img src="${this.formirajIconu(data.weather[0].description,dobaDanaIkona)}"></li>`
           this.lista48sati1.insertAdjacentHTML("beforebegin",markup)
           break;
         case 2:
-          markup =`<li class="sati48">${vrijeme48}<img src="${this.formirajIconu(data.weather[0].description,dobaDanaIkona)}"></li>`
+          markup =`<li class="sati48 ${klasaIkone}">${vrijeme48}<img src="${this.formirajIconu(data.weather[0].description,dobaDanaIkona)}"></li>`
           this.lista48sati2.insertAdjacentHTML("beforebegin",markup)
           break;
         case 3:
-          markup =`<li class="sati48">${vrijeme48}<img src="${this.formirajIconu(data.weather[0].description,dobaDanaIkona)}"></li>`
+          markup =`<li class="sati48 ${klasaIkone}">${vrijeme48}<img src="${this.formirajIconu(data.weather[0].description,dobaDanaIkona)}"></li>`
           this.lista48sati3.insertAdjacentHTML("beforebegin",markup)
           break;
       }
