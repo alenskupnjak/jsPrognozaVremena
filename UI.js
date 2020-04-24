@@ -113,8 +113,7 @@ class UI {
 
   // vračamo link ikone iz CSS direktorija prema opisu iz API
   formirajIconu (vrijeme,dobaDanaIkona){
-    // console.log(vrijeme);
-  
+    console.log(vrijeme);
       let day;
      //  https://developer.accuweather.com/sites/default/files/06-s.png
     switch(vrijeme){
@@ -141,6 +140,9 @@ class UI {
         break;
       case 'umjerena kiša':
         if(dobaDanaIkona === 'dan') {day = 'css/14-s.png';} else {day = 'css/39-s.png';}
+        break;
+      case 'sumaglica':
+        if(dobaDanaIkona === 'dan') {day = 'css/11-s.png';} else {day = 'css/37-s.png';}
         break;
     }
     return day
