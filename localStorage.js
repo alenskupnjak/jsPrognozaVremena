@@ -1,5 +1,5 @@
 class Storage {
-  constructor(){
+  constructor() {
     this.grad;
     this.drzava;
     this.defaultGrad = 'Sesvete';
@@ -7,7 +7,7 @@ class Storage {
   }
 
   getLocationData() {
-    if(localStorage.getItem('grad') === null) {
+    if (localStorage.getItem('grad') === null) {
       this.grad = this.defaultGrad;
       this.drzava = this.defaultDrzava;
     } else {
@@ -17,10 +17,9 @@ class Storage {
 
     return {
       grad: this.grad,
-      drzava: this.drzava
-    }
+      drzava: this.drzava,
+    };
   }
-
 
   setLocationData(grad, drzava) {
     localStorage.setItem('grad', grad);
