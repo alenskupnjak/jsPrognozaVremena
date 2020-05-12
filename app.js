@@ -12,20 +12,19 @@ const ui = new UI();
 document.addEventListener('DOMContentLoaded', dohvatiVrijeme);
 
 // Promjeni lokaciju
-document.getElementById('w-change-btn').addEventListener('click', (e)=> {
+document.getElementById('w-change-btn').addEventListener('click', (e) => {
   // očitavam vrijednosti grada i države sa ekrana
   const grad = document.getElementById('city').value;
   const drzava = document.getElementById('state').value;
- 
+
   // provjera dali je jedno polje prazno. Ako je daje upozorenje i čeka novi upis
-  if(grad !== '' && drzava !=='') {
-    
+  if (grad !== '' && drzava !== '') {
     // promjeni lokaciju grada
     vrijeme.promjeniLokaciju(grad, drzava);
-  
+
     // promjeni local storage
-    locStorage.setLocationData(grad, drzava)
-  
+    locStorage.setLocationData(grad, drzava);
+
     // dohvati vremenske podatke
     dohvatiVrijeme();
 
@@ -34,35 +33,33 @@ document.getElementById('w-change-btn').addEventListener('click', (e)=> {
   } else {
     ui.upozorenje('Jedno je polje prazno', 'alert-danger');
   }
-})
-
+});
 
 // dohvati vremenske podatke
-function dohvatiVrijeme(){
-  // počisti UI
-  // ui.ocistiEkran();
+function dohvatiVrijeme() {
 
-  vrijeme.getVrijeme()
+  vrijeme
+    .getVrijeme()
     .then((data) => {
-      if (data !== 'nemaGrada'){
-          // počisti UI
-          ui.ocistiEkran();
+      if (data !== 'nemaGrada') {
+        // počisti UI
+        ui.ocistiEkran();
 
         // popunjavam pvo podatke trenutnog vremena
         ui.popuniDOM(data);
 
-          vrijeme.sedamDana(data.coord.lat,data.coord.lon)
-          .then(data =>{
+        vrijeme
+          .sedamDana(data.coord.lat, data.coord.lon)
+          .then((data) => {
             // popuni 48 sati vrijeme
-            ui.popunuDOMsedam(data)
+            ui.popunuDOMsedam(data);
           })
-          .catch(err => {
-          console.log(err);
+          .catch((err) => {
+            console.log(err);
           });
-
       } else {
         ui.upozorenje('Nisam pronašao grad!', 'alert-danger');
-        locStorage.setLocationData('Sesvete','HR')
+        locStorage.setLocationData('Sesvete', 'HR');
       }
     })
     .catch((err) => console.log(err));
