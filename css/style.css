@@ -2,12 +2,17 @@ body, html .container {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  background-color: #f3f3f3;
 }
 
 .container {
   display: flex;
+  height: 100vh;
 }
 
+h2 {
+  font-size: 2rem;
+}
 
 .trenutno {
   margin: 0;
@@ -41,12 +46,17 @@ body, html .container {
   list-style: none;
   margin: 0;
   padding: 0;
-  display: inline-block;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  /* display: inline-block; */
   /* width: 30%; */
   /* background-color: blue; */
 }
 .sedamdana-col img{
- width: 1.6rem;
+ width: 3rem;
  /* height: 1.4rem; */
 }
 
@@ -69,4 +79,10 @@ body, html .container {
 
 .prekosutra {
   color: #73A839;
+}
+
+.sati48 {
+  font-weight: bold;
+  display: flex;
+  flex-direction: column;
 }

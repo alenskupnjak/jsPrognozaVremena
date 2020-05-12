@@ -85,8 +85,12 @@ class UI {
         this.pretvorVrijeme(data.dt).length - 3
       );
 
+
+      // popunjavamo vrijeme za svaka 4h ne ekranu
+      if ( vrijeme48 % 4 !== 0) {vrijeme48 = '';}
+        
       // formatiram vrijemje ako je npr.9h pretvaram ga u 09h
-      if (parseInt(vrijeme48) < 10) {
+      if (parseInt(vrijeme48) < 10 ) {
         vrijeme48 = '0' + vrijeme48;
       }
       // odredujem u kojem sam danu, mijenjam boju fonta u stupcu 7dana
@@ -99,22 +103,26 @@ class UI {
 
       // ovisno o stupcu za 48sat vremena popunjavam DOM
       switch (br) {
+        // spremam u kolonu 1
         case 1:
-          markup = `<li class="sati48 ${klasaIkone}">${vrijeme48}<img src="${this.formirajIconu(
+          markup = `<li class="sati48 ${klasaIkone}">${vrijeme48 === '' ?'' : vrijeme48 +'h'}<img src="${this.formirajIconu(
             data.weather[0].description,
             dobaDanaIkona
           )}"></li>`;
           this.lista48sati1.insertAdjacentHTML('beforebegin', markup);
           break;
+
+        // spremam u kolonu 2
         case 2:
-          markup = `<li class="sati48 ${klasaIkone}">${vrijeme48}<img src="${this.formirajIconu(
+          markup = `<li class="sati48 ${klasaIkone}">${vrijeme48 === '' ?'' : vrijeme48 +'h'}<img src="${this.formirajIconu(
             data.weather[0].description,
             dobaDanaIkona
           )}"></li>`;
           this.lista48sati2.insertAdjacentHTML('beforebegin', markup);
           break;
+        // spremam u kolonu 2
         case 3:
-          markup = `<li class="sati48 ${klasaIkone}">${vrijeme48}<img src="${this.formirajIconu(
+          markup = `<li class="sati48 ${klasaIkone}">${vrijeme48 === '' ?'' : vrijeme48 +'h'}<img src="${this.formirajIconu(
             data.weather[0].description,
             dobaDanaIkona
           )}"></li>`;
@@ -126,7 +134,6 @@ class UI {
 
   // vračamo link ikone iz CSS direktorija prema opisu iz API
   formirajIconu(vrijeme, dobaDanaIkona) {
-    console.log(vrijeme);
     let day;
     //  https://developer.accuweather.com/sites/default/files/06-s.png
     switch (vrijeme) {
