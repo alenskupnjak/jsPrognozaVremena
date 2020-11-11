@@ -45,17 +45,11 @@ class UI {
     );
     markup = `<li class="list-group-item" id="w-humidity"><img src="css/humidity.png" class="ikone">${vrijeme.main.humidity} %</li>`;
     this.details.insertAdjacentHTML('beforebegin', markup);
-    markup = `<li class="list-group-item" id="w-wind"><img src="css/wind.png" class="ikone">${vrijeme.wind.speed.toFixed(
-      1
-    )} m/s</li>`;
+    markup = `<li class="list-group-item" id="w-wind"><img src="css/wind.png" class="ikone">${vrijeme.wind.speed.toFixed(1)} m/s</li>`;
     this.details.insertAdjacentHTML('beforebegin', markup);
-    markup = `<li class="list-group-item" id="sunce-izlaz"><img src="css/sunrise.png" class="ikone">${this.pretvorVrijeme(
-      vrijeme.sys.sunrise
-    )}</li>`;
+    markup = `<li class="list-group-item" id="sunce-izlaz"><img src="css/sunrise.png" class="ikone">${this.pretvorVrijeme(vrijeme.sys.sunrise)}</li>`;
     this.details.insertAdjacentHTML('beforebegin', markup);
-    markup = `<li class="list-group-item" id="sunce-zalaz"><img src="css/sunset.png" class="ikone">${this.pretvorVrijeme(
-      vrijeme.sys.sunset
-    )}</li>`;
+    markup = `<li class="list-group-item" id="sunce-zalaz"><img src="css/sunset.png" class="ikone">${this.pretvorVrijeme(vrijeme.sys.sunset)}</li>`;
     this.details.insertAdjacentHTML('beforebegin', markup);
     this.datum.textContent = `${this.formatirajDatum()}`;
   }
@@ -85,12 +79,13 @@ class UI {
         this.pretvorVrijeme(data.dt).length - 3
       );
 
-
       // popunjavamo vrijeme za svaka 4h ne ekranu
-      if ( vrijeme48 % 4 !== 0) {vrijeme48 = '';}
-        
-      // formatiram vrijemje ako je npr.9h pretvaram ga u 09h
-      if (parseInt(vrijeme48) < 10 ) {
+      if (vrijeme48 % 4 !== 0) {
+        vrijeme48 = '';
+      }
+
+      // formatiram vrijeme ako je npr.9h pretvaram ga u 09h
+      if (parseInt(vrijeme48) < 10) {
         vrijeme48 = '0' + vrijeme48;
       }
       // odredujem u kojem sam danu, mijenjam boju fonta u stupcu 7dana
@@ -105,7 +100,9 @@ class UI {
       switch (br) {
         // spremam u kolonu 1
         case 1:
-          markup = `<li class="sati48 ${klasaIkone}">${vrijeme48 === '' ?'' : vrijeme48 +'h'}<img src="${this.formirajIconu(
+          markup = `<li class="sati48 ${klasaIkone}">${
+            vrijeme48 === '' ? '' : vrijeme48 + 'h'
+          }<img src="${this.formirajIconu(
             data.weather[0].description,
             dobaDanaIkona
           )}"></li>`;
@@ -114,7 +111,9 @@ class UI {
 
         // spremam u kolonu 2
         case 2:
-          markup = `<li class="sati48 ${klasaIkone}">${vrijeme48 === '' ?'' : vrijeme48 +'h'}<img src="${this.formirajIconu(
+          markup = `<li class="sati48 ${klasaIkone}">${
+            vrijeme48 === '' ? '' : vrijeme48 + 'h'
+          }<img src="${this.formirajIconu(
             data.weather[0].description,
             dobaDanaIkona
           )}"></li>`;
@@ -122,7 +121,9 @@ class UI {
           break;
         // spremam u kolonu 2
         case 3:
-          markup = `<li class="sati48 ${klasaIkone}">${vrijeme48 === '' ?'' : vrijeme48 +'h'}<img src="${this.formirajIconu(
+          markup = `<li class="sati48 ${klasaIkone}">${
+            vrijeme48 === '' ? '' : vrijeme48 + 'h'
+          }<img src="${this.formirajIconu(
             data.weather[0].description,
             dobaDanaIkona
           )}"></li>`;
@@ -284,9 +285,11 @@ class UI {
     }
 
     if (sat > izlazSunca && sat < zalazSunca) {
-      dobaDana = 'dan'; // console.log('Izlazak sunca= ' + izlazSunca + ' - ' + dobaDana + ' - ' +vrijeme.hourly[index].dt + '  zalazak= ' +  zalazSunca);
+      // console.log('Izlazak sunca= ' + izlazSunca + ' - ' + dobaDana + ' - ' +vrijeme.hourly[index].dt + '  zalazak= ' +  zalazSunca);
+      dobaDana = 'dan'; 
     } else {
-      dobaDana = 'noc'; // console.log('Izlazak sunca= ' + izlazSunca + ' - '+ dobaDana + ' - '+ vrijeme.hourly[index].dt + '  zalazak= ' +  zalazSunca);
+      // console.log('Izlazak sunca= ' + izlazSunca + ' - '+ dobaDana + ' - '+ vrijeme.hourly[index].dt + '  zalazak= ' +  zalazSunca);
+      dobaDana = 'noc'; 
     }
     return dobaDana;
   }
