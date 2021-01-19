@@ -18,7 +18,7 @@ class UI {
   }
 
   popuniDOM(vrijeme) {
-    // console.log(vrijeme);
+    console.log(vrijeme);
     // API openweathermap daje vrijeme u sekundama, JS traži milisekunde
     // console.log('Milisekunde='+ vrijeme.dt, new Date(vrijeme.sys.sunrise  * 1000));
     // console.log('Milisekunde='+ vrijeme.sys.sunrise,new Date(vrijeme.dt  * 1000));
@@ -45,18 +45,24 @@ class UI {
     );
     markup = `<li class="list-group-item" id="w-humidity"><img src="css/humidity.png" class="ikone">${vrijeme.main.humidity} %</li>`;
     this.details.insertAdjacentHTML('beforebegin', markup);
-    markup = `<li class="list-group-item" id="w-wind"><img src="css/wind.png" class="ikone">${vrijeme.wind.speed.toFixed(1)} m/s</li>`;
+    markup = `<li class="list-group-item" id="w-wind"><img src="css/wind.png" class="ikone">${vrijeme.wind.speed.toFixed(
+      1
+    )} m/s</li>`;
     this.details.insertAdjacentHTML('beforebegin', markup);
-    markup = `<li class="list-group-item" id="sunce-izlaz"><img src="css/sunrise.png" class="ikone">${this.pretvorVrijeme(vrijeme.sys.sunrise)}</li>`;
+    markup = `<li class="list-group-item" id="sunce-izlaz"><img src="css/sunrise.png" class="ikone">${this.pretvorVrijeme(
+      vrijeme.sys.sunrise
+    )}</li>`;
     this.details.insertAdjacentHTML('beforebegin', markup);
-    markup = `<li class="list-group-item" id="sunce-zalaz"><img src="css/sunset.png" class="ikone">${this.pretvorVrijeme(vrijeme.sys.sunset)}</li>`;
+    markup = `<li class="list-group-item" id="sunce-zalaz"><img src="css/sunset.png" class="ikone">${this.pretvorVrijeme(
+      vrijeme.sys.sunset
+    )}</li>`;
     this.details.insertAdjacentHTML('beforebegin', markup);
     this.datum.textContent = `${this.formatirajDatum()}`;
   }
 
   // popunjava glavni meni vrijeme trenutnim vrijednostima
   popunuDOMsedam(vrijeme) {
-    // console.log(vrijeme);
+    console.log(vrijeme);
     let markup;
     let klasaIkone = '';
     let startnoVrijeme = this.pretvorVrijeme(vrijeme.hourly[0].dt).substr(
@@ -134,7 +140,7 @@ class UI {
   }
 
   // vračamo link ikone iz CSS direktorija prema opisu iz API
-  formirajIconu(vrijeme, dobaDanaIkona) {
+  formirajIconu(vrijeme, dobaDanaIkona) {  
     let day;
     //  https://developer.accuweather.com/sites/default/files/06-s.png
     switch (vrijeme) {
@@ -200,7 +206,25 @@ class UI {
         } else {
           day = 'css/37-s.png';
         }
+      case 'snijeg':
+        if (dobaDanaIkona === 'dan') {
+          day = 'css/22-s.png';
+        } else {
+          day = 'css/22-s.png';
+        }
         break;
+      case 'slabi snijeg':
+        if (dobaDanaIkona === 'dan') {
+          day = 'css/22-s.png';
+        } else {
+          day = 'css/22-s.png';
+        }
+        break;
+
+
+        // default
+        default:
+        console.log('nedefiniran:', vrijeme);
     }
     return day;
   }
@@ -286,10 +310,10 @@ class UI {
 
     if (sat > izlazSunca && sat < zalazSunca) {
       // console.log('Izlazak sunca= ' + izlazSunca + ' - ' + dobaDana + ' - ' +vrijeme.hourly[index].dt + '  zalazak= ' +  zalazSunca);
-      dobaDana = 'dan'; 
+      dobaDana = 'dan';
     } else {
       // console.log('Izlazak sunca= ' + izlazSunca + ' - '+ dobaDana + ' - '+ vrijeme.hourly[index].dt + '  zalazak= ' +  zalazSunca);
-      dobaDana = 'noc'; 
+      dobaDana = 'noc';
     }
     return dobaDana;
   }

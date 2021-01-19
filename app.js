@@ -37,7 +37,6 @@ document.getElementById('w-change-btn').addEventListener('click', (e) => {
 
 // dohvati vremenske podatke
 function dohvatiVrijeme() {
-
   vrijeme
     .getVrijeme()
     .then((data) => {
@@ -45,7 +44,7 @@ function dohvatiVrijeme() {
         // počisti UI
         ui.ocistiEkran();
 
-        // popunjavam pvo podatke trenutnog vremena
+        // popunjavam prvo podatke trenutnog vremena na lijevoj strani Ekrana
         ui.popuniDOM(data);
 
         vrijeme
