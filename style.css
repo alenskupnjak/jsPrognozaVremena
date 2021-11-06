@@ -92,6 +92,7 @@ h2 {
   font-weight: bold;
   display: flex;
   flex-direction: column;
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 .sati48:hover {

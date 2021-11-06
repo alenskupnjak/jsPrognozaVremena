@@ -1,140 +1,175 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      src="https://kit.fontawesome.com/165d179615.js"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="shortcut icon" type="image/icon" href="css/weather.ico" />
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="style.css" />
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="https://kit.fontawesome.com/165d179615.js" crossorigin="anonymous"></script>
-  <link rel="shortcut icon" type="image/icon" href="css/weather.ico">
-  <link rel="stylesheet" href="css/bootstrap.min.css">
-  <link rel="stylesheet" href="style.css">
+    <title>Prognoza vremena</title>
+  </head>
 
-  <title>Prognoza vremena</title>
-</head>
-
-<body>
-  <div class="container">
-    <!-- <section class="col-sm-4">
+  <body>
+    <div class="container">
+      <!-- <section class="col-sm-4">
       <div class=" text-center mt-5 p-5 rounded">
         <h1>7 dana</h1>
       </div>
 
     </section> -->
-    <section class="col-md-6 trenutno">
-      <div class="text-center mt-2 p-2 rounded">
-        <h3 id="w-location"></h3>
-        <h4 id="w-string"></h4>
-        <div class="row">
-          <h5 id="w-desc" class="mx-auto"></h5>
-          <img id="w-icon" style="height: 2rem;" class="mx-auto">
-        </div>
-        <ul id="w-details" class="list-group mt-2">
-          <!-- <li class="list-group-item" ><img src="css/sunrise.png" class="ikone"></li> -->
-          <!-- <li class="list-group-item" ><img src="css/sunset.png" class="ikone"></li> -->
-        </ul>
-        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#locModal">
-          Promijeni lokaciju
-        </button>
-        <p id="datum" class="mt-2">datum</p>
-      </div>
-    </section>
-
-    <section class="col-md-6 sedamdana">
-      <div class="text-center mt-2 rounded">
-        <h4><img src="css/next.png" class="next"> 48 h <img src="css/next.png" class="next"></h4>
-        <div class="sedamdana-col col-md-2">
-          <ul id="sedamdana-dani-1" class="list-group">
-            <!-- <li>01-<img src="css/01-s.png"></li> -->
+      <section class="col-md-6 trenutno">
+        <div class="text-center mt-2 p-2 rounded">
+          <h3 id="w-location"></h3>
+          <h4 id="w-string"></h4>
+          <div class="row">
+            <h5 id="w-desc" class="mx-auto"></h5>
+            <img id="w-icon" style="height: 2rem" class="mx-auto" />
+          </div>
+          <ul id="w-details" class="list-group mt-2">
+            <!-- <li class="list-group-item" ><img src="css/sunrise.png" class="ikone"></li> -->
+            <!-- <li class="list-group-item" ><img src="css/sunset.png" class="ikone"></li> -->
           </ul>
-        </div>
-        <div class="sedamdana-col col-md-2">
-          <ul id="sedamdana-dani-2" class="list-group">
-            <!-- <li>01-<img src="css/wind.png"></li> -->
-          </ul>
-        </div>
-
-        <div class="sedamdana-col col-md-2">
-          <ul id="sedamdana-dani-3" class="list-group">
-            <!-- <li>01-<img src="css/wind.png"></li> -->
-          </ul>
-        </div>
-
-        <!-- <div><img src="css/favicon.ico" class="mojLogo"></div> -->
-      </div>
-    </section>
-  </div>
-
-  <!-- Modal -->
-  <div class="modal fade" id="locModal" tabindex="-1" role="dialog" aria-labelledby="locModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="locModalLabel">Odaberi lokaciju</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
+          <button
+            type="button"
+            class="btn btn-success"
+            data-toggle="modal"
+            data-target="#locModal"
+          >
+            Promijeni lokaciju
           </button>
+          <p id="datum" class="mt-2">datum</p>
         </div>
-        <div class="modal-body">
-          <form id="w-form">
-            <div class="form-group">
-              <label for="city">Mjesto</label>
-              <input type="text" id="city" class="form-control">
-            </div>
+      </section>
 
-            <!-- 
+      <section class="col-md-6 sedamdana">
+        <div class="text-center mt-2 rounded">
+          <h4>
+            <img src="css/next.png" class="next" /> 48 h
+            <img src="css/next.png" class="next" />
+          </h4>
+          <div class="sedamdana-col col-md-2">
+            <ul id="sedamdana-dani-1" class="list-group">
+              <!-- <li>01-<img src="css/01-s.png"></li> -->
+            </ul>
+          </div>
+          <div class="sedamdana-col col-md-2">
+            <ul id="sedamdana-dani-2" class="list-group">
+              <!-- <li>01-<img src="css/wind.png"></li> -->
+            </ul>
+          </div>
+
+          <div class="sedamdana-col col-md-2">
+            <ul id="sedamdana-dani-3" class="list-group">
+              <!-- <li>01-<img src="css/wind.png"></li> -->
+            </ul>
+          </div>
+          <!-- <div><img src="css/favicon.ico" class="mojLogo"></div> -->
+        </div>
+      </section>
+    </div>
+
+    <!-- Modal -->
+    <div
+      class="modal fade"
+      id="locModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="locModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="locModalLabel">Odaberi lokaciju</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form id="w-form">
+              <div class="form-group">
+                <label for="city">Mjesto</label>
+                <input type="text" id="city" class="form-control" />
+              </div>
+
+              <!-- 
           <div class="form-group">
               <label for="state">Država</label>
               <input type="text" id="state" class="form-control" value="HR">
             </div> -->
 
-            <div class="form-group col-md-6">
-              <label for="state">Država</label>
-              <select class="form-control" id="state" aria-placeholder="Izaberi zemlju">
-                <option>HR</option>
-                <option>FR</option>
-                <option>UK</option>
-                <option>SLO</option>
-                <option>NL</option>
-              </select>
-            </div>
+              <div class="form-group col-md-6">
+                <label for="state">Država</label>
+                <select
+                  class="form-control"
+                  id="state"
+                  aria-placeholder="Izaberi zemlju"
+                >
+                  <option>HR</option>
+                  <option>FR</option>
+                  <option>UK</option>
+                  <option>SLO</option>
+                  <option>NL</option>
+                </select>
+              </div>
 
-            <!-- 
+              <!-- 
           <select class="custom-select custom-select-sm">
             <option selected>Open this select menu</option>
             <option value="1">HR</option>
             <option value="2">FR</option>
             <option value="3">UK</option>
           </select> -->
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Zatvori</button>
-          <button id="w-change-btn" type="button" class="btn btn-primary">Potvrdi odabir</button>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Zatvori
+            </button>
+            <button id="w-change-btn" type="button" class="btn btn-primary">
+              Potvrdi odabir
+            </button>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-
-
-  <!-- <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    <!-- <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
     integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
     crossorigin="anonymous"></script> -->
-  <script src="https://code.jquery.com/jquery-3.5.0.min.js"
-    integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.5.0.min.js"
+      integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ="
+      crossorigin="anonymous"
+    ></script>
 
-
-
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-    crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-    crossorigin="anonymous"></script>
-  <script src="localStorage.js"></script>
-  <script src="vrijeme.js"></script>
-  <script src="UI.js"></script>
-  <script src="app.js"></script>
-</body>
-
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+      integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+      crossorigin="anonymous"
+    ></script>
+    <script src="localStorage.js"></script>
+    <script src="vrijeme.js"></script>
+    <script src="UI.js"></script>
+    <script src="app.js"></script>
+  </body>
 </html>
