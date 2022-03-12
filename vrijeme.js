@@ -6,7 +6,7 @@ class Vrijeme {
   }
 
   // Pokupi vrijeme sa API openweathermap 1000 poziva /dnevno
-  async getVrijeme() {
+  getVrijeme = async () => {
     try {
       URL = `https://api.openweathermap.org/data/2.5/weather?q=${this.grad},${this.drzava}&lang=hr&units=metric&appid=c6ce8e54cb1a45e8a46e0c7c9e327d8d`;
       const response = await fetch(URL);
@@ -19,7 +19,7 @@ class Vrijeme {
     } catch (err) {
       console.log(err);
     }
-  }
+  };
 
   // Prognoza vremena za 7 dana
   async sedamDana(lat, lon) {

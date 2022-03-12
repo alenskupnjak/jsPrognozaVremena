@@ -140,7 +140,7 @@ class UI {
   }
 
   // vračamo link ikone iz CSS direktorija prema opisu iz API
-  formirajIconu(vrijeme, dobaDanaIkona) {  
+  formirajIconu = (vrijeme, dobaDanaIkona) => {
     let day;
     //  https://developer.accuweather.com/sites/default/files/06-s.png
     switch (vrijeme) {
@@ -221,13 +221,12 @@ class UI {
         }
         break;
 
-
-        // default
-        default:
+      // default
+      default:
         console.log('nedefiniran:', vrijeme);
     }
     return day;
-  }
+  };
 
   // formatiranje datuma za ispis na ekran
   formatirajDatum() {
@@ -319,7 +318,7 @@ class UI {
   }
 
   // Ispisuje upozirenje na ekram ako je Input prazan
-  upozorenje(msg, className) {
+  upozorenje = (msg, className) => {
     // kreiraj element
     let div = document.createElement('div');
 
@@ -351,7 +350,7 @@ class UI {
     // Add text
     div.appendChild(document.createTextNode(msg));
 
-    //Get parent
+    // Get parent
     container = document.querySelector('.modal-content');
 
     form = document.querySelector('.modal-header');
@@ -363,10 +362,10 @@ class UI {
     setTimeout(function () {
       document.querySelector('.alert').remove();
     }, 3000);
-  }
+  };
 
   // pretvaranje vremena u zapis prikladan za ispis na ekran
-  pretvorVrijeme(data) {
+  pretvorVrijeme = (data) => {
     let unix_timestamp = data;
     // Create a new JavaScript Date object based on the timestamp
     // multiplied by 1000 so that the argument is in milliseconds, not seconds.
@@ -386,10 +385,10 @@ class UI {
     let formattedTime = hours + ':' + minutes.substr(-2); // console.log('Formatirano vrijeme= '+ formattedTime);
 
     return formattedTime;
-  }
+  };
 
   // brisanje postojećih podataka sa ekrana
-  ocistiEkran() {
+  ocistiEkran = () => {
     // ako su polja 48 h puna , brišem ih da se mogu ubaciti novi podaci
     // prilikom prvog usnimavanja polje je prazno ta preskače ovaj dio
     if (document.querySelectorAll('.sati48').length > 0) {
@@ -402,5 +401,5 @@ class UI {
         e.remove();
       });
     }
-  }
+  };
 }
